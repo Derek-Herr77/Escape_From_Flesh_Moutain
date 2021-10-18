@@ -82,7 +82,7 @@ Material:
     - _MBWindBlend: 0
     - _MBWindDir: 90
     - _MBWindDirOffset: 63
-    - _Metallic: 0
+    - _Metallic: 0.5
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02

@@ -1,40 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8856957018272777039
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
-  m_Name: LensDistortion
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  intensity:
-    overrideState: 1
-    value: -40
-  intensityX:
-    overrideState: 0
-    value: 1
-  intensityY:
-    overrideState: 0
-    value: 1
-  centerX:
-    overrideState: 0
-    value: 0
-  centerY:
-    overrideState: 0
-    value: 0
-  scale:
-    overrideState: 0
-    value: 1
---- !u!114 &-8122180363709738205
+--- !u!114 &-7309303522777815293
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,7 +17,7 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   gradingMode:
-    overrideState: 0
+    overrideState: 1
     value: 1
   externalLut:
     overrideState: 0
@@ -61,7 +27,7 @@ MonoBehaviour:
     overrideState: 1
     value: 2
   toneCurveToeStrength:
-    overrideState: 0
+    overrideState: 1
     value: 0
   toneCurveToeLength:
     overrideState: 0
@@ -86,29 +52,29 @@ MonoBehaviour:
     overrideState: 0
     value: 1
   temperature:
-    overrideState: 1
-    value: -30
+    overrideState: 0
+    value: -1
   tint:
     overrideState: 0
     value: 0
   colorFilter:
     overrideState: 0
-    value: {r: 1, g: 0.0982824, b: 0, a: 1}
+    value: {r: 1, g: 0.75, b: 0.75, a: 1}
   hueShift:
     overrideState: 0
-    value: -23
+    value: 54
   saturation:
-    overrideState: 1
+    overrideState: 0
     value: 0
   brightness:
     overrideState: 0
     value: 0
   postExposure:
     overrideState: 0
-    value: 1
+    value: 0
   contrast:
-    overrideState: 1
-    value: 5
+    overrideState: 0
+    value: 0
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -138,13 +104,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 0.9956503, z: 0.9956503, w: 0.010111301}
   gamma:
     overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 1, z: 1, w: -0.020222446}
   gain:
     overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 1, z: 1, w: 0.6268957}
   masterCurve:
     overrideState: 0
     value:
@@ -1433,9 +1399,8 @@ MonoBehaviour:
   - {fileID: 1749240806188174650}
   - {fileID: 1544952955969865102}
   - {fileID: -5289688959772598724}
-  - {fileID: -8856957018272777039}
   - {fileID: 8214809641866502553}
-  - {fileID: -8122180363709738205}
+  - {fileID: -7309303522777815293}
 --- !u!114 &1544952955969865102
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1457,13 +1422,13 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.3
-  size:
-    overrideState: 0
     value: 1
+  size:
+    overrideState: 1
+    value: 0.3
   lumContrib:
     overrideState: 0
-    value: 0.8
+    value: 0
 --- !u!114 &1749240806188174650
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1510,7 +1475,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.1
+    value: 1
   threshold:
     overrideState: 0
     value: 1

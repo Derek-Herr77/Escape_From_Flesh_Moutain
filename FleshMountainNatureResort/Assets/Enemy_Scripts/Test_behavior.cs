@@ -15,12 +15,13 @@ public class Test_behavior : MonoBehaviour
     //wander
     public Vector3 walk_point;
     bool walk_set;
-    public float walk_point_range;
+    public float walk_point_range = 15;
     public float walk_delay;
 
     //attack
     public float attack_delay;
     bool has_attacked;
+    bool cr_running = false;
 
     //states
     public float sightRange, attackRange;
@@ -34,7 +35,8 @@ public class Test_behavior : MonoBehaviour
         enemy = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
     }
-    void Update()
+
+    void FixedUpdate()
     {
         player_insight = Physics.CheckSphere(transform.position, sightRange, whatsPlayer);
         player_inattack = Physics.CheckSphere(transform.position, attackRange, whatsPlayer);
@@ -47,6 +49,8 @@ public class Test_behavior : MonoBehaviour
         {
             walk_set = false;
         }
+
+        Debug.Log(walk_point);
     }
 
     private void wander()
@@ -54,24 +58,45 @@ public class Test_behavior : MonoBehaviour
         if (!walk_set)
         {
             animator.SetBool("seen", false);
-            Invoke(nameof(find_walkpoint), walk_delay);
+            //Invoke(nameof(find_walkpoint), walk_delay);
+            //Invoke(nameof(setpoint), walk_delay);
+            if(cr_running == false)
+            {
+                StartCoroutine(walk_delay_set());
+            }
         }
+        IEnumerator walk_delay_set()
+        {
+            cr_running = true;
+            yield return new WaitForSeconds(walk_delay);
+            walk_set = true;
+            setpoint();
+            cr_running = false;
+        }
+
     }
 
+
+    //OBSOLETE FUNCTION
+    /*
     private void find_walkpoint()
     {
-        float randomZ = Random.Range(-walk_point_range, walk_point_range);
-        float randomX = Random.Range(-walk_point_range, walk_point_range);
-
-        walk_point = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-        if (Physics.Raycast(walk_point, -transform.up, 2f, whatsGround))
+        while (walk_set == false)
         {
-            walk_set = true;
-            animator.SetBool("seen", true);
-            enemy.SetDestination(walk_point);
+            float randomZ = Random.Range(-walk_point_range + 5, walk_point_range);
+            float randomX = Random.Range(-walk_point_range + 5, walk_point_range);
+
+            walk_point = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+            if (Physics.Raycast(walk_point, -transform.up, 2f, whatsGround))
+            {
+                walk_set = true;
+                animator.SetBool("seen", true);
+                enemy.SetDestination(walk_point);
+            }
         }
     }
+    */
 
     private void chase()
     {
@@ -110,10 +135,29 @@ public class Test_behavior : MonoBehaviour
             enemy.isStopped = true;
             yield return new WaitForSeconds(0.5f);
             enemy.ResetPath();
-         
-
+            enemy.SetDestination(walk_point);
         }
     }
 
-    
+
+    public void setpoint()
+    {
+        walk_point = RandomNavmeshLocation(15f);
+        animator.SetBool("seen", true);
+        enemy.SetDestination(walk_point);
+    }
+    public Vector3 RandomNavmeshLocation(float radius)
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * radius;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
+        {
+            finalPosition = new Vector3(hit.position.x, transform.position.y, hit.position.z);
+           // finalPosition = hit.position;
+        }
+        return finalPosition;
+    }
+
 }
