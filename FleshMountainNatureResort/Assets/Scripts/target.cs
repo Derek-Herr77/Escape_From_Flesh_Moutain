@@ -19,5 +19,6 @@ public class target : MonoBehaviour
     public void takeDamage(int damage)
     {
         health = health - damage;
+        GetComponent<Test_behavior>().damage_taken = true;
     }
 }

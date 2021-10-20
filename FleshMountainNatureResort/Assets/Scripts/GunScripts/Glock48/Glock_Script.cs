@@ -135,13 +135,9 @@ public class Glock_Script : MonoBehaviour
                 }
                 hit.rigidbody.AddForce(-hit.normal * 1f, ForceMode.Impulse);
             }
-            GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-            impactGO.transform.parent = hit.transform;
-            Destroy(impactGO, 10f);
-             
-        
-            
-
+                GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                impactGO.transform.parent = hit.transform;
+                Destroy(impactGO, 10f);
         }
 
         StartCoroutine(shell_casing());
