@@ -91,7 +91,8 @@ public class FirstPersonAIO : MonoBehaviour {
     public bool enableCameraShake=false;
     internal Vector3 cameraStartingPosition;
     float baseCamFOV;
-    
+   
+
 
     public bool autoCrosshair = false;
     public bool drawStaminaMeter = true;
@@ -103,6 +104,10 @@ public class FirstPersonAIO : MonoBehaviour {
     private Vector3 followAngles;
     private Vector3 followVelocity;
     private Vector3 originalRotation;
+
+    //recoil stuff
+    public float xTilt;
+    public float zTilt;
     #endregion
 
     #region Movement Settings
@@ -173,7 +178,7 @@ public class FirstPersonAIO : MonoBehaviour {
 
     #endregion
 
-    #region Headbobbing Settings
+     #region Headbobbing Settings
     public bool useHeadbob = true;
     public Transform head = null;
     public bool snapHeadjointToCapsul = true;
@@ -538,14 +543,13 @@ public class FirstPersonAIO : MonoBehaviour {
         #region Headbobbing Settings - FixedUpdate
         float yPos = 0;
         float xPos = 0;
-        float zTilt = 0;
-        float xTilt = 0;
+        zTilt = 0;
         float bobSwayFactor = 0;
         float bobFactor = 0;
         float strideLangthen = 0;
         float flatVel = 0;
         //calculate headbob freq
-        if(useHeadbob == true || enableAudioSFX){
+        if (useHeadbob == true || enableAudioSFX){
             Vector3 vel = (fps_Rigidbody.position - previousPosition) / Time.deltaTime;
             Vector3 velChange = vel - previousVelocity;
             previousPosition = fps_Rigidbody.position;
@@ -568,10 +572,21 @@ public class FirstPersonAIO : MonoBehaviour {
             yPos = 0;
             xPos = 0;
             zTilt = 0;
-            if(jumpLandIntensity>0 && !advanced.stairMiniHop){xTilt = -springPosition * (jumpLandIntensity*5.5f);}
-            else if(!advanced.stairMiniHop){xTilt = -springPosition;}
 
-            if(IsGrounded){
+            if(xTilt < 0)
+            {
+                xTilt += 1;
+            }
+
+
+            if (xTilt == 0)
+            {
+                if (jumpLandIntensity > 0 && !advanced.stairMiniHop) { xTilt = -springPosition * (jumpLandIntensity * 5.5f); }
+                else if (!advanced.stairMiniHop) { xTilt = -springPosition; }
+            }
+
+
+            if (IsGrounded){
                 if(new Vector3(vel.x, 0.0f, vel.z).magnitude < 0.1f) { headbobFade = Mathf.MoveTowards(headbobFade, 0.0f,0.5f); } else { headbobFade = Mathf.MoveTowards(headbobFade, 1.0f, Time.deltaTime); }
                 float speedHeightFactor = 1 + (flatVel * 0.3f);
                 xPos = -(headbobSideMovement/10) * headbobFade *bobSwayFactor;
@@ -579,21 +594,20 @@ public class FirstPersonAIO : MonoBehaviour {
                 zTilt = bobSwayFactor * (headbobSwayAngle/10) * headbobFade;
             }
         }
+
         //apply headbob position
-            if(useHeadbob == true){
-                if(fps_Rigidbody.velocity.magnitude >0.1f){
+        if(useHeadbob == true){
+            //ADDED
+                if (fps_Rigidbody.velocity.magnitude >0.1f){
                     head.localPosition = Vector3.MoveTowards(head.localPosition, snapHeadjointToCapsul ? (new Vector3(originalLocalPosition.x,(capsule.height/2)*head.localScale.y,originalLocalPosition.z)  + new Vector3(xPos, yPos, 0)) : originalLocalPosition + new Vector3(xPos, yPos, 0),0.5f);
                 }else{
                     head.localPosition = Vector3.SmoothDamp(head.localPosition, snapHeadjointToCapsul ? (new Vector3(originalLocalPosition.x,(capsule.height/2)*head.localScale.y,originalLocalPosition.z)  + new Vector3(xPos, yPos, 0)) : originalLocalPosition + new Vector3(xPos, yPos, 0),ref miscRefVel, 0.15f);
                 }
                 head.localRotation = Quaternion.Euler(xTilt, 0, zTilt);
-                
-           
         }
         #endregion
-        
         #region Dynamic Footsteps
-        if(enableAudioSFX){    
+        if (enableAudioSFX){    
             if(fsmode == FSMode.Dynamic)
             {   
                 RaycastHit hit = new RaycastHit();
@@ -806,7 +820,19 @@ public class FirstPersonAIO : MonoBehaviour {
         if(advanced.maxSlopeAngle>0){advanced.curntGroundNormal = Vector3.up; advanced.lastKnownSlopeAngle = 0; advanced.isTouchingWalkable = false; advanced.isTouchingUpright = false;}
 
     }
+    public void addRecoil(float recoil_amount, float max_recoil)
+    {
+        if (Input.GetMouseButton(0))
+        {
 
+            if (xTilt > -max_recoil)
+            {
+                xTilt -= recoil_amount;
+                head.localRotation = Quaternion.Euler(xTilt, 0, zTilt);
+            }
+        }
+
+    }
 
 }
 

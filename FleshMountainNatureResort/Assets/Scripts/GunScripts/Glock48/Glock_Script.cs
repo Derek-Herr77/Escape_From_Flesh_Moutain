@@ -25,7 +25,12 @@ public class Glock_Script : MonoBehaviour
     //ammo and magazine
     public int magazine_size = 10;
     public int ammo_in_magazine = 10;
-
+    public float recoil_strength;
+    public float recoil_max;
+    //
+    //recoil
+    Vector3 orig_camera_rotation;
+    public Vector3 up_recoil;
 
     // Update is called once per frame
 
@@ -40,25 +45,23 @@ public class Glock_Script : MonoBehaviour
         gunOperations();
     }
 
-    private void FixedUpdate()
-    {
-        while (Input.GetMouseButton(1) && mainCamera.fieldOfView >= zoom_fov)
-        {
-            mainCamera.fieldOfView = mainCamera.fieldOfView - 0.001f;
-        }
-        while (!Input.GetMouseButton(1) && mainCamera.fieldOfView <= default_fov)
-        {
-            mainCamera.fieldOfView += 0.01f;
-        }
-    }
-
     private void gunOperations()
     {
+
+        if(Input.GetMouseButton(1))
+        {
+            animator.SetBool("aim", true);
+        }
+        else
+        {
+            animator.SetBool("aim", false);
+        }
         if (Input.GetMouseButton(0))
         {
             if (!animator.IsInTransition(0) && animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") && ammo_in_magazine > 0)
             {
                 shoot();
+                recoil();
             }
         }
 
@@ -159,6 +162,11 @@ public class Glock_Script : MonoBehaviour
         {
             animator.Play("glock_flip", -1, 0.2f);
         }
+    }
+
+    public void recoil()
+    {
+       player.GetComponent<FirstPersonAIO>().addRecoil(recoil_strength, 10);
     }
 
 

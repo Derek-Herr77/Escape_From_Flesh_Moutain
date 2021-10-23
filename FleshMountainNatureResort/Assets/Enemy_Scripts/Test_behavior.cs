@@ -119,7 +119,7 @@ public class Test_behavior : MonoBehaviour
     {
         chased = true;
         walk_set = true;
-        enemy.speed = 3;
+        enemy.speed = 2.3f;
         enemy.SetDestination(player.position);
     }
 
