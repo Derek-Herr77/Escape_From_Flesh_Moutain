@@ -543,11 +543,12 @@ public class FirstPersonAIO : MonoBehaviour {
         #region Headbobbing Settings - FixedUpdate
         float yPos = 0;
         float xPos = 0;
-        zTilt = 0;
         float bobSwayFactor = 0;
         float bobFactor = 0;
         float strideLangthen = 0;
         float flatVel = 0;
+        zTilt = 0;
+        xTilt = 0;
         //calculate headbob freq
         if (useHeadbob == true || enableAudioSFX){
             Vector3 vel = (fps_Rigidbody.position - previousPosition) / Time.deltaTime;
@@ -571,12 +572,8 @@ public class FirstPersonAIO : MonoBehaviour {
 
             yPos = 0;
             xPos = 0;
-            zTilt = 0;
 
-            if(xTilt < 0)
-            {
-                xTilt += 1;
-            }
+
 
 
             if (xTilt == 0)
@@ -820,18 +817,12 @@ public class FirstPersonAIO : MonoBehaviour {
         if(advanced.maxSlopeAngle>0){advanced.curntGroundNormal = Vector3.up; advanced.lastKnownSlopeAngle = 0; advanced.isTouchingWalkable = false; advanced.isTouchingUpright = false;}
 
     }
-    public void addRecoil(float recoil_amount, float max_recoil)
+    public void addRecoil(float recoil_amount)
     {
-        if (Input.GetMouseButton(0))
-        {
-
-            if (xTilt > -max_recoil)
-            {
-                xTilt -= recoil_amount;
-                head.localRotation = Quaternion.Euler(xTilt, 0, zTilt);
-            }
-        }
-
+        float x = Random.Range(recoil_amount, recoil_amount); //vertical
+        float y = Random.Range(-recoil_amount, recoil_amount); //horizontal
+        RotateCamera(new Vector2(targetAngles.x + x, targetAngles.y + y), false);
+        Debug.Log(" x: " + x + " Y: " + y);
     }
 
 }

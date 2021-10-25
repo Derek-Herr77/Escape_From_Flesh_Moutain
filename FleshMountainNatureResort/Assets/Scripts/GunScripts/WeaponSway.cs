@@ -9,6 +9,10 @@ public class WeaponSway : MonoBehaviour
     public float smooth;
 
     private Vector3 initialPos;
+
+
+    public float swayMultiplier;
+    /*
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +30,21 @@ public class WeaponSway : MonoBehaviour
         Vector3 finalPos = new Vector3(moveX, moveY, 0);
         transform.localPosition = Vector3.Lerp(transform.localPosition, finalPos + initialPos, Time.deltaTime * smooth);
 
+    }
+    */
+
+
+    private void Update()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
+
+
+        Quaternion rotationX = Quaternion.AngleAxis(-mouseY , Vector3.right);
+        Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
+
+        Quaternion targetRotation = rotationX * rotationY;
+
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smooth * Time.deltaTime);
     }
 }

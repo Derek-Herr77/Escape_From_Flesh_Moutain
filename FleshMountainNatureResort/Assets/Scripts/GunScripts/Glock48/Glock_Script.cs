@@ -26,7 +26,6 @@ public class Glock_Script : MonoBehaviour
     public int magazine_size = 10;
     public int ammo_in_magazine = 10;
     public float recoil_strength;
-    public float recoil_max;
     //
     //recoil
     Vector3 orig_camera_rotation;
@@ -166,7 +165,7 @@ public class Glock_Script : MonoBehaviour
 
     public void recoil()
     {
-       player.GetComponent<FirstPersonAIO>().addRecoil(recoil_strength, 10);
+       player.GetComponent<FirstPersonAIO>().addRecoil(recoil_strength);
     }
 
 
