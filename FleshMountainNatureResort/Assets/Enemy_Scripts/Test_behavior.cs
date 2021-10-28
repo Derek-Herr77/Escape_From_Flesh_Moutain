@@ -61,8 +61,6 @@ public class Test_behavior : MonoBehaviour
         if (!player_insight && !player_inattack) wander();
         if ((player_insight && !player_inattack) || damage_taken) chase();
         if (player_insight && player_inattack) attack();
-
-        Debug.Log(animator.GetFloat("speed"));
     }
 
     private void wander()

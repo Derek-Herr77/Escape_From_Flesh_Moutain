@@ -27,6 +27,7 @@ public class Glock_Script : MonoBehaviour
     public int ammo_in_magazine = 10;
     public float recoil_strength;
     //
+    private bool isWalking = false;
     //recoil
     Vector3 orig_camera_rotation;
     public Vector3 up_recoil;
@@ -49,32 +50,36 @@ public class Glock_Script : MonoBehaviour
 
         if(Input.GetMouseButton(1))
         {
-            animator.SetBool("aim", true);
+            glock_aim();
         }
         else
         {
-            animator.SetBool("aim", false);
+            glock_unaim();
         }
         if (Input.GetMouseButton(0))
         {
-            if (!animator.IsInTransition(0) && animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") && ammo_in_magazine > 0)
+            if (!animator.IsInTransition(0) && ammo_in_magazine > 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("glock_aim")))
             {
                 shoot();
                 recoil();
             }
+            if(ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle_empty")|| animator.GetCurrentAnimatorStateInfo(0).IsName("glock_empty_aim")) && !animator.IsInTransition(0))
+            {
+                    shoot_empty();
+             }
         }
 
         if(Input.GetKeyDown(KeyCode.R))
         {
             int player_ammo = player.GetComponent<player_inventory>().return_pistol_ammo();
-            if(player_ammo > 0)
+            if(player_ammo > 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle_empty")))
             {
                 flip();
                 reload();
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && player.GetComponent<FirstPersonAIO>().isSprinting == true)
         {
             animator.SetBool("isRun", true);
         }
@@ -82,6 +87,8 @@ public class Glock_Script : MonoBehaviour
         {
             animator.SetBool("isRun", false);
         }
+
+        //isWalking_check();
         
     }
 
@@ -155,12 +162,10 @@ public class Glock_Script : MonoBehaviour
     }
     public void flip()
     {
-        animator.Play("glock_flip", -1, 0);
-        flip_sound.PlayOneShot(flip_swoosh);
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip"))
-        {
-            animator.Play("glock_flip", -1, 0.2f);
+        if (!animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsName("empty_reload") && !animator.GetCurrentAnimatorStateInfo(0).IsName("flip") && (ammo_in_magazine != magazine_size))
+        { animator.SetTrigger("flip");
         }
+        
     }
 
     public void recoil()
@@ -168,5 +173,37 @@ public class Glock_Script : MonoBehaviour
        player.GetComponent<FirstPersonAIO>().addRecoil(recoil_strength);
     }
 
+    public void glock_aim()
+    {
+        animator.SetBool("aim", true);
+        player.GetComponent<FirstPersonAIO>().aiming = true;
+    }
 
+    public void glock_unaim()
+    {
+        animator.SetBool("aim", false);
+        player.GetComponent<FirstPersonAIO>().aiming = false;
+    }
+
+    public void shoot_empty()
+    {
+        animator.SetTrigger("fire_empty");
+    }
+
+
+
+    //NOT USED, WALK BOB WAS DISABLED
+    /*
+    public void isWalking_check()
+    {
+        if (Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.x) > 0.01f || Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.z) > 0.01f)
+        {
+            animator.SetBool("isWalk", true);
+        }
+        else
+        {
+            animator.SetBool("isWalk", false);
+        }
+    }
+    */
 }

@@ -307,22 +307,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8943616856342786068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 307549767616424725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d07e901a64efdf4abf232c5284476bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmount: 3
-  max_swayAmount: 1
-  smooth: 1
-  swayMultiplier: 0
 --- !u!114 &8943616856342786070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +337,6 @@ MonoBehaviour:
   magazine_size: 10
   ammo_in_magazine: 10
   recoil_strength: 0
-  recoil_max: 0
   up_recoil: {x: 0, y: 0, z: 0}
 --- !u!1 &316514118586563806
 GameObject:
@@ -1279,6 +1262,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bc826913c60909449759dc021f0caf1, type: 3}
+--- !u!4 &6042658475731403357 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3442379570501500565, guid: 5bc826913c60909449759dc021f0caf1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8943616856606178504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1085211717827801519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8291529797256039783, guid: 5bc826913c60909449759dc021f0caf1,
@@ -1288,12 +1277,6 @@ Transform:
 --- !u!1 &307549767616424725 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8672453794509035485, guid: 5bc826913c60909449759dc021f0caf1,
-    type: 3}
-  m_PrefabInstance: {fileID: 8943616856606178504}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6042658475731403357 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3442379570501500565, guid: 5bc826913c60909449759dc021f0caf1,
     type: 3}
   m_PrefabInstance: {fileID: 8943616856606178504}
   m_PrefabAsset: {fileID: 0}

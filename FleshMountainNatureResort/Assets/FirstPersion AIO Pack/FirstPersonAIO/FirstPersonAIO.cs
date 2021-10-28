@@ -70,7 +70,7 @@ public class FirstPersonAIO : MonoBehaviour {
 
 
     #region Variables
-
+    public bool aiming = false;
     #region Input Settings
     public bool controllerPauseState = false;
     #endregion
@@ -172,7 +172,7 @@ public class FirstPersonAIO : MonoBehaviour {
     public bool isCrouching;
     float yVelocity;
     float checkedSlope;
-    bool isSprinting = false;
+    public bool isSprinting = false;
 
     public Rigidbody fps_Rigidbody;
 
@@ -400,7 +400,7 @@ public class FirstPersonAIO : MonoBehaviour {
         #region Movement Settings - FixedUpdate
         
         if(useStamina){
-            isSprinting = Input.GetKey(sprintKey) && !isCrouching && staminaInternal > 0 && (Mathf.Abs(fps_Rigidbody.velocity.x) > 0.01f || Mathf.Abs(fps_Rigidbody.velocity.z) > 0.01f);
+            isSprinting = Input.GetKey(sprintKey) && !isCrouching && staminaInternal > 0 && (Mathf.Abs(fps_Rigidbody.velocity.x) > 0.01f || Mathf.Abs(fps_Rigidbody.velocity.z) > 0.01f) && !aiming;
             if(isSprinting){
                 staminaInternal -= (staminaDepletionSpeed*2)*Time.deltaTime;
                 if(drawStaminaMeter){
@@ -822,7 +822,6 @@ public class FirstPersonAIO : MonoBehaviour {
         float x = Random.Range(recoil_amount, recoil_amount); //vertical
         float y = Random.Range(-recoil_amount, recoil_amount); //horizontal
         RotateCamera(new Vector2(targetAngles.x + x, targetAngles.y + y), false);
-        Debug.Log(" x: " + x + " Y: " + y);
     }
 
 }
