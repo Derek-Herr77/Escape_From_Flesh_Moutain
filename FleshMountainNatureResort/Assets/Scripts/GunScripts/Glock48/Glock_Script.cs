@@ -58,12 +58,12 @@ public class Glock_Script : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            if (!animator.IsInTransition(0) && ammo_in_magazine > 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("glock_aim")))
+            if (!animator.IsInTransition(0) && ammo_in_magazine > 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("glock_aim")) && animator.GetBool("flip") != true)
             {
                 shoot();
                 recoil();
             }
-            if(ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle_empty")|| animator.GetCurrentAnimatorStateInfo(0).IsName("glock_empty_aim")) && !animator.IsInTransition(0))
+            if(ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle_empty")|| animator.GetCurrentAnimatorStateInfo(0).IsName("glock_empty_aim")) && !animator.IsInTransition(0) && animator.GetBool("flip") != true)
             {
                     shoot_empty();
              }
@@ -72,10 +72,9 @@ public class Glock_Script : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R))
         {
             int player_ammo = player.GetComponent<player_inventory>().return_pistol_ammo();
-            if(player_ammo > 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle_empty")))
+            if(player_ammo > 0 && !animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") && !animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty"))
             {
                 flip();
-                reload();
             }
         }
 
@@ -89,7 +88,12 @@ public class Glock_Script : MonoBehaviour
         }
 
         //isWalking_check();
-        
+
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty"))
+        {
+            reload();
+        }
     }
 
     public void reload()
@@ -120,6 +124,7 @@ public class Glock_Script : MonoBehaviour
         {
             animator.SetTrigger("fire");
         }
+        ammo_in_magazine -= 1;
         muzzle_flash.Play();
         muzzle_smoke.Play();
 
@@ -157,13 +162,12 @@ public class Glock_Script : MonoBehaviour
             shell.PlayOneShot(shell_casing_sound);
 
         }
-
-        ammo_in_magazine -= 1;
     }
     public void flip()
     {
-        if (!animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsName("empty_reload") && !animator.GetCurrentAnimatorStateInfo(0).IsName("flip") && (ammo_in_magazine != magazine_size))
+        if (!animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsName("empty_reload") && !animator.GetCurrentAnimatorStateInfo(0).IsName("flip") && (ammo_in_magazine != magazine_size) && animator.GetBool("flip") != true)
         { animator.SetTrigger("flip");
+          glock_unaim();
         }
         
     }
@@ -175,8 +179,11 @@ public class Glock_Script : MonoBehaviour
 
     public void glock_aim()
     {
-        animator.SetBool("aim", true);
-        player.GetComponent<FirstPersonAIO>().aiming = true;
+        if (animator.GetBool("flip") == false)
+        {
+            animator.SetBool("aim", true);
+            player.GetComponent<FirstPersonAIO>().aiming = true;
+        }
     }
 
     public void glock_unaim()
