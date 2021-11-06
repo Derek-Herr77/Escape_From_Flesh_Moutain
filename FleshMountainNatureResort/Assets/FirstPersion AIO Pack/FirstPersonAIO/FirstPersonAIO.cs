@@ -417,7 +417,7 @@ public class FirstPersonAIO : MonoBehaviour {
                     StaminaMeter.transform.localScale = new Vector3(x,1,1); 
                 }
                 staminaInternal = Mathf.Clamp(staminaInternal,0,staminaLevel);
-        } else{isSprinting = Input.GetKey(sprintKey);}
+        } else{isSprinting = Input.GetKey(sprintKey) && !aiming; }
 
         Vector3 MoveDirection = Vector3.zero;
         speed = walkByDefault ? isCrouching ? walkSpeedInternal : (isSprinting ? sprintSpeedInternal : walkSpeedInternal) : (isSprinting ? walkSpeedInternal : sprintSpeedInternal);

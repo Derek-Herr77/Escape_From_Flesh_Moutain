@@ -58,12 +58,12 @@ public class Glock_Script : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            if (!animator.IsInTransition(0) && ammo_in_magazine > 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("glock_aim")) && animator.GetBool("flip") != true)
+            if (!animator.IsInTransition(0) && ammo_in_magazine > 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("glock_aim")) && animator.GetBool("flip") != true && player.GetComponent<FirstPersonAIO>().isSprinting == false)
             {
                 shoot();
                 recoil();
             }
-            if(ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle_empty")|| animator.GetCurrentAnimatorStateInfo(0).IsName("glock_empty_aim")) && !animator.IsInTransition(0) && animator.GetBool("flip") != true)
+            if(ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("glock_idle_empty")|| animator.GetCurrentAnimatorStateInfo(0).IsName("glock_empty_aim")) && !animator.IsInTransition(0) && animator.GetBool("flip") != true && player.GetComponent<FirstPersonAIO>().isSprinting == false)
             {
                     shoot_empty();
              }
@@ -72,7 +72,7 @@ public class Glock_Script : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R))
         {
             int player_ammo = player.GetComponent<player_inventory>().return_pistol_ammo();
-            if(player_ammo > 0 && !animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") && !animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty"))
+            if(player_ammo > 0 && !animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") && !animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty"))
             {
                 flip();
             }
@@ -162,6 +162,7 @@ public class Glock_Script : MonoBehaviour
             shell.PlayOneShot(shell_casing_sound);
 
         }
+
     }
     public void flip()
     {
