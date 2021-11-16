@@ -18,8 +18,11 @@ public class Glock_Script : MonoBehaviour
     public AudioSource flip_sound;
     public AudioSource shell;
     public AudioClip gunshot;
+    public AudioClip reload_noise;
+    public AudioClip reload_noise_2;
     public AudioClip shell_casing_sound;
     public AudioClip flip_swoosh;
+    public AudioClip empty_fire;
     public GameObject impact;
     public int decal_count = 15;
     //ammo and magazine
@@ -87,7 +90,7 @@ public class Glock_Script : MonoBehaviour
             animator.SetBool("isRun", false);
         }
 
-        //isWalking_check();
+        isWalking_check();
 
 
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty"))
@@ -167,10 +170,18 @@ public class Glock_Script : MonoBehaviour
     public void flip()
     {
         if (!animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsName("empty_reload") && !animator.GetCurrentAnimatorStateInfo(0).IsName("flip") && (ammo_in_magazine != magazine_size) && animator.GetBool("flip") != true)
-        { animator.SetTrigger("flip");
+        { 
+          if(ammo_in_magazine == 0)
+          {
+                gun.PlayOneShot(reload_noise);
+          }
+          else
+          {
+                gun.PlayOneShot(reload_noise_2);
+          }
+          animator.SetTrigger("flip");
           glock_unaim();
         }
-        
     }
 
     public void recoil()
@@ -196,15 +207,13 @@ public class Glock_Script : MonoBehaviour
     public void shoot_empty()
     {
         animator.SetTrigger("fire_empty");
+        gun.PlayOneShot(empty_fire);
     }
 
 
-
-    //NOT USED, WALK BOB WAS DISABLED
-    /*
     public void isWalking_check()
     {
-        if (Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.x) > 0.01f || Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.z) > 0.01f)
+        if ((Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.x) > 0.01f || Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.z) > 0.01f) && !player.GetComponent<FirstPersonAIO>().aiming == true)
         {
             animator.SetBool("isWalk", true);
         }
@@ -213,5 +222,5 @@ public class Glock_Script : MonoBehaviour
             animator.SetBool("isWalk", false);
         }
     }
-    */
+    
 }

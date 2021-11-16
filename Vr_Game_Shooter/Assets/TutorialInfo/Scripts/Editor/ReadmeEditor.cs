@@ -26,11 +26,13 @@ public class ReadmeEditor : Editor {
 			var readme = SelectReadme();
 			SessionState.SetBool(kShowedReadmeSessionStateName, true);
 			
+			/*
 			if (readme && !readme.loadedLayout)
 			{
 				LoadLayout();
 				readme.loadedLayout = true;
 			}
+			*/
 		} 
 	}
 	
