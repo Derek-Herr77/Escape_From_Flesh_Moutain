@@ -15,7 +15,7 @@ public class Glock_Script : MonoBehaviour
     public ParticleSystem muzzle_flash;
     public ParticleSystem muzzle_smoke;
     public AudioSource gun;
-    public AudioSource flip_sound;
+    public AudioSource reload_sound_source;
     public AudioSource shell;
     public AudioClip gunshot;
     public AudioClip reload_noise;
@@ -81,7 +81,7 @@ public class Glock_Script : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && player.GetComponent<FirstPersonAIO>().isSprinting == true)
+        if (player.GetComponent<FirstPersonAIO>().isSprinting == true)
         {
             animator.SetBool("isRun", true);
         }
@@ -93,8 +93,9 @@ public class Glock_Script : MonoBehaviour
         isWalking_check();
 
 
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty"))
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty 0"))
         {
+            Debug.Log("RELOAD CALLED");
             reload();
         }
     }
@@ -104,16 +105,27 @@ public class Glock_Script : MonoBehaviour
         int reload_amount = magazine_size - ammo_in_magazine;
         int player_ammo = player.GetComponent<player_inventory>().return_pistol_ammo();
 
-        if(reload_amount >= player_ammo)
+        if (reload_amount > 0)
         {
-            reload_amount = player_ammo;
-            ammo_in_magazine = ammo_in_magazine + player_ammo;
-            player.GetComponent<player_inventory>().reload_pistol(reload_amount);
-        }
-        else
-        {
-            ammo_in_magazine = ammo_in_magazine + reload_amount;
-            player.GetComponent<player_inventory>().reload_pistol(reload_amount);
+            if (ammo_in_magazine == 0)
+            {
+                gun.PlayOneShot(reload_noise);
+            }
+            else
+            {
+                gun.PlayOneShot(reload_noise_2);
+            }
+            if (reload_amount >= player_ammo)
+            {
+                reload_amount = player_ammo;
+                ammo_in_magazine = ammo_in_magazine + player_ammo;
+                player.GetComponent<player_inventory>().reload_pistol(reload_amount);
+            }
+            else
+            {
+                ammo_in_magazine = ammo_in_magazine + reload_amount;
+                player.GetComponent<player_inventory>().reload_pistol(reload_amount);
+            }
         }
     }
 
@@ -150,7 +162,7 @@ public class Glock_Script : MonoBehaviour
                 {
                     hit.transform.SendMessage("hitbyray");
                 }
-                hit.rigidbody.AddForce(-hit.normal * 1f, ForceMode.Impulse);
+                hit.rigidbody.AddForce(-hit.normal * 5f, ForceMode.Impulse);
             }
                 GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
                 impactGO.transform.parent = hit.transform;
@@ -163,7 +175,6 @@ public class Glock_Script : MonoBehaviour
             gun.PlayOneShot(gunshot);
             yield return new WaitForSeconds(0.1f);
             shell.PlayOneShot(shell_casing_sound);
-
         }
 
     }
@@ -171,14 +182,6 @@ public class Glock_Script : MonoBehaviour
     {
         if (!animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsName("empty_reload") && !animator.GetCurrentAnimatorStateInfo(0).IsName("flip") && (ammo_in_magazine != magazine_size) && animator.GetBool("flip") != true)
         { 
-          if(ammo_in_magazine == 0)
-          {
-                gun.PlayOneShot(reload_noise);
-          }
-          else
-          {
-                gun.PlayOneShot(reload_noise_2);
-          }
           animator.SetTrigger("flip");
           glock_unaim();
         }

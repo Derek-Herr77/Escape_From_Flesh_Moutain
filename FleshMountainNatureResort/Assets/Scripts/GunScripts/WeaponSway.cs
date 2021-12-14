@@ -9,7 +9,7 @@ public class WeaponSway : MonoBehaviour
     
  
 
-    private void Update()
+    private void FixedUpdate()
     {
 
         float mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
