@@ -10,7 +10,6 @@ public class Glock_Script : MonoBehaviour
     public Camera mainCamera;
     private Animator animator;
     public float zoom_fov;
-    private float default_fov;
     public int damage = 30;
     public ParticleSystem muzzle_flash;
     public ParticleSystem muzzle_smoke;
@@ -24,15 +23,14 @@ public class Glock_Script : MonoBehaviour
     public AudioClip flip_swoosh;
     public AudioClip empty_fire;
     public GameObject impact;
+    public GameObject impactBlood;
+    public GameObject blood_decals;
     public int decal_count = 15;
     //ammo and magazine
     public int magazine_size = 10;
     public int ammo_in_magazine = 10;
     public float recoil_strength;
     //
-    private bool isWalking = false;
-    //recoil
-    Vector3 orig_camera_rotation;
     public Vector3 up_recoil;
 
     // Update is called once per frame
@@ -41,7 +39,6 @@ public class Glock_Script : MonoBehaviour
     {
         player = GameObject.Find("player");
         animator = glock.GetComponent<Animator>();
-        default_fov = mainCamera.fieldOfView;
     }
     void Update()
     {
@@ -95,7 +92,6 @@ public class Glock_Script : MonoBehaviour
 
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty 0"))
         {
-            Debug.Log("RELOAD CALLED");
             reload();
         }
     }
@@ -147,26 +143,39 @@ public class Glock_Script : MonoBehaviour
         //RAYCAST 2 LAYERS, THE GROUND AND EVERYTHING ELSE
         int layerMask = 1 << 0;
         int layerMask2 = 1 << 10;
+        int layerMask3 = 1 << 11;
         RaycastHit hit;
-        if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask) || Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask2))
+        RaycastHit hit_blood;
+        if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask3) || Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask) || Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask2))
         {
-       
             if(hit.rigidbody != null)
             {
-                if(hit.transform.GetComponent<target>() != null)
+                if(hit.transform.GetComponent<target>() != null || hit.transform.root.GetComponent<target>() != null)
                 {
-                    target target = hit.transform.GetComponent<target>();
-                    target.takeDamage(damage);
+                    target target = hit.transform.root.GetComponent<target>();
+                    target.takeDamage(damage, -hit.normal);
                 }
+                hit.rigidbody.AddForce(-hit.normal * 15f, ForceMode.Impulse);
+            }
+
                 if(hit.transform.tag == "enemy")
                 {
-                    hit.transform.SendMessage("hitbyray");
+                    GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactBlood_1.transform.parent = hit.transform;
+                    Destroy(impactBlood_1, 10f);
+                    if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit_blood, Mathf.Infinity, layerMask) || Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit_blood, Mathf.Infinity, layerMask2))
+                    {
+                        GameObject impactGO = Instantiate(blood_decals, hit_blood.point, Quaternion.LookRotation(hit_blood.normal));
+                        impactGO.transform.parent = hit_blood.transform;
+                        Destroy(impactGO, 100f);
+                    }
                 }
-                hit.rigidbody.AddForce(-hit.normal * 5f, ForceMode.Impulse);
-            }
-                GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-                impactGO.transform.parent = hit.transform;
-                Destroy(impactGO, 10f);
+                else
+                {
+                    GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactGO.transform.parent = hit.transform;
+                    Destroy(impactGO, 10f);
+                }
         }
 
         StartCoroutine(shell_casing());
