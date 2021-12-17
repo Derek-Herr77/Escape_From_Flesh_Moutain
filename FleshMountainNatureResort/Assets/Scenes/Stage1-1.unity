@@ -486,7 +486,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1394
+  m_Name: pb_Mesh-245744
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -649,7 +649,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1960
+  m_Name: pb_Mesh-245676
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -928,6 +928,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 314167644447537663, guid: 5e188ffd605263946871c685c132adea,
+        type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8650175871426666577, guid: 5e188ffd605263946871c685c132adea,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -1068,7 +1073,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-102892
+  m_Name: pb_Mesh-245508
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2575,7 +2580,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1970
+  m_Name: pb_Mesh-245686
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

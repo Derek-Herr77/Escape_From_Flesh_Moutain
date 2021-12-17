@@ -3,7 +3,7 @@ namespace DecalSystem {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEditor;
+    //using UnityEditor;
     using UnityEngine;
     using UnityEngine.Serialization;
 
@@ -33,7 +33,7 @@ namespace DecalSystem {
         }
 
 
-        [MenuItem( "GameObject/Decal" )]
+        //[MenuItem( "GameObject/Decal" )]
         internal static void Create() {
             new GameObject( "Decal", typeof( Decal ), typeof( MeshFilter ), typeof( MeshRenderer ) ).isStatic = true;
         }
@@ -58,6 +58,7 @@ namespace DecalSystem {
         }
 
         void Update() {
+            gameObject.SetActive(true);
             if (transform.hasChanged) {
                 transform.hasChanged = false;
                 BuildAndSetDirty();
@@ -65,6 +66,7 @@ namespace DecalSystem {
         }
 
 
+#if UNITY_EDITOR
         void OnDrawGizmosSelected() {
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.color = Color.green;
@@ -86,7 +88,7 @@ namespace DecalSystem {
             //    }
             //}
         }
-
+        #endif
 
         public void BuildAndSetDirty() {
             if (Sprite) DecalUtils.FixRatio( this, ref oldScale );

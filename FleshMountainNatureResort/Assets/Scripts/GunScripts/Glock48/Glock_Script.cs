@@ -141,7 +141,7 @@ public class Glock_Script : MonoBehaviour
 
 
         //RAYCAST 2 LAYERS, THE GROUND AND EVERYTHING ELSE
-        int layerMask = 1 << 0; //ground layer not used
+        //int layerMask = 1 << 12; //ground layer not used
         int layerMask2 = 1 << 0;
         int layerMask3 = 1 << 11;
         RaycastHit hit;
@@ -165,18 +165,17 @@ public class Glock_Script : MonoBehaviour
                     Destroy(impactBlood_1, 100f);
                     if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit_blood, Mathf.Infinity, layerMask2))
                     {
-                        if (hit_blood.transform.gameObject.isStatic)
+                        if (hit_blood.transform.tag == "no_decal")
                         {
-                            GameObject impactGO = Instantiate(blood_decals, hit_blood.point, Quaternion.LookRotation(-hit_blood.normal));
-                            impactGO.transform.parent = hit_blood.transform;
-                            impactGO.gameObject.SetActive(true);
-                            Destroy(impactGO, 30f);
+                            GameObject impactBlood_2 = Instantiate(impactBlood, hit_blood.point, Quaternion.LookRotation(hit_blood.normal));
+                            impactBlood_2.transform.parent = hit_blood.transform;
+                            Destroy(impactBlood_2, 100f);
                         }
                         else
                         {
-                            Debug.Log("LOOP 3");
-                            GameObject impactBlood_2 = Instantiate(impactBlood, hit_blood.point, Quaternion.LookRotation(hit_blood.normal));
+                            GameObject impactBlood_2 = Instantiate(blood_decals, hit_blood.point, Quaternion.LookRotation(-hit_blood.normal));
                             impactBlood_2.transform.parent = hit_blood.transform;
+                            impactBlood_2.SetActive(true);
                             float scale_multiplier = Random.Range(0.5f, 2);
                             impactBlood_2.transform.localScale = new Vector3(impactBlood_2.transform.localScale.x * scale_multiplier, impactBlood_2.transform.localScale.y * scale_multiplier, impactBlood_2.transform.localScale.z * scale_multiplier);
                             Destroy(impactBlood_2, 100f);
