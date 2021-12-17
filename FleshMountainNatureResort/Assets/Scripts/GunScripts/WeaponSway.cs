@@ -15,6 +15,18 @@ public class WeaponSway : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
         float mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
 
+        if(mouseX > 50 || mouseX < -50)
+        {
+            if (mouseX > 50) { mouseX = 50; }
+            else { mouseX = -50; }
+        }
+
+        if (mouseY > 50 || mouseY < -50)
+        {
+            if (mouseY > 50) { mouseY = 50; }
+            else { mouseY = -50; }
+        }
+
 
         Quaternion rotationX = Quaternion.AngleAxis(-mouseY , Vector3.right);
         Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);

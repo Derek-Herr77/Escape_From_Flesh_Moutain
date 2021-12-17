@@ -30,7 +30,6 @@ public class door : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(time_up);
         if (player_in == false && time_up == true)
         {
             animator.SetBool("zone", false);
