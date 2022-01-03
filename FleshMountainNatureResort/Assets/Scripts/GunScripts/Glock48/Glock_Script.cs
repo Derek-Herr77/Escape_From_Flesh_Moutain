@@ -163,7 +163,7 @@ public class Glock_Script : MonoBehaviour
                     GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
                     impactBlood_1.transform.parent = hit.transform;
                     Destroy(impactBlood_1, 100f);
-                    if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit_blood, Mathf.Infinity, layerMask2))
+                    if (Physics.Raycast(hit.transform.position, mainCamera.transform.forward, out hit_blood, 5f, layerMask2))
                     {
                         if (hit_blood.transform.tag == "no_decal")
                         {
