@@ -500,7 +500,8 @@ public class FirstPersonAIO : MonoBehaviour {
         if(playerCanMove && !controllerPauseState){
           fps_Rigidbody.velocity = MoveDirection+(Vector3.up * yVelocity);
 
-        } else{fps_Rigidbody.velocity = Vector3.zero;}
+        } else{ //fps_Rigidbody.velocity = Vector3.zero;
+                }
 
         if(inputXY.magnitude > 0 || !IsGrounded) {
             capsule.sharedMaterial = advanced.zeroFrictionMaterial;
@@ -729,16 +730,26 @@ public class FirstPersonAIO : MonoBehaviour {
         #endregion
     }
 
- 
+    public void enemy_hit_player(float Duration, float Magnitude, Vector3 force)
+    {
+        StartCoroutine(CameraShake(Duration, Magnitude, force, true));
+    }
 
-    public IEnumerator CameraShake(float Duration, float Magnitude){
+    public IEnumerator CameraShake(float Duration, float Magnitude, Vector3 force, bool enemy_hit)
+    {
         float elapsed =0;
         while(elapsed<Duration && enableCameraShake){
-            playerCamera.transform.localPosition =Vector3.MoveTowards(playerCamera.transform.localPosition, new Vector3(cameraStartingPosition.x+ Random.Range(-1,1)*Magnitude,cameraStartingPosition.y+Random.Range(-1,1)*Magnitude,cameraStartingPosition.z), Magnitude*2);
-            yield return new WaitForSecondsRealtime(0.001f);
+            if(elapsed == 0)
+            {
+                playerCanMove = false;
+                fps_Rigidbody.AddForce(force * 3f, ForceMode.Impulse);
+            }
+            playerCamera.transform.localPosition = Vector3.MoveTowards(playerCamera.transform.localPosition, new Vector3(cameraStartingPosition.x+ Random.Range(-1,1)*Magnitude,cameraStartingPosition.y+Random.Range(-1,1)*Magnitude,cameraStartingPosition.z), Magnitude*2);
+            yield return new WaitForSecondsRealtime(0.01f);
             elapsed += Time.deltaTime;
             yield return null;
         }
+        playerCanMove = true;
         playerCamera.transform.localPosition = cameraStartingPosition;
     }
 

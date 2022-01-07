@@ -14,9 +14,10 @@ namespace DecalSystem {
         }
     }
 
+    
     public static class MeshUtils {
 
-
+        
         public static IEnumerable<Triangle> GetTriangles(MeshFilter[] objects, Matrix4x4 worldToDecalMatrix) {
             return objects.SelectMany( i => GetTriangles( i, worldToDecalMatrix ) );
         }
@@ -49,7 +50,8 @@ namespace DecalSystem {
             var v3 = matrix.MultiplyPoint( triangle.V3 );
             return new Triangle( v1, v2, v3 );
         }
-
+    
 
     }
+
 }

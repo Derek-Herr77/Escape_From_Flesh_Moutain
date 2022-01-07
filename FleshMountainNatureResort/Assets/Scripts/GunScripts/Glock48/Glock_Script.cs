@@ -139,31 +139,55 @@ public class Glock_Script : MonoBehaviour
         muzzle_flash.Play();
         muzzle_smoke.Play();
 
+        StartCoroutine(shell_casing());
+        IEnumerator shell_casing()
+        {
+            gun.PlayOneShot(gunshot);
+            yield return new WaitForSeconds(0.1f);
+            shell.PlayOneShot(shell_casing_sound);
+        }
 
         //RAYCAST 2 LAYERS, THE GROUND AND EVERYTHING ELSE
         //int layerMask = 1 << 12; //ground layer not used
         int layerMask2 = 1 << 0;
         int layerMask3 = 1 << 11;
+        int layerMask1 = 1 << 12;
         RaycastHit hit;
         RaycastHit hit_blood;
-        if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask2 | layerMask3))
+        if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask1 | layerMask2 | layerMask3))
         {
+            //HIT FORCE
                 if(hit.rigidbody != null)
                 {
                     if (hit.transform.GetComponent<target>() != null || hit.transform.root.GetComponent<target>() != null)
                     {
                         target target = hit.transform.root.GetComponent<target>();
-                        target.takeDamage(damage, -hit.normal);
+                        if(hit.transform.name == "spine.006")
+                        {
+                            target.headshot(damage, -hit.normal);
+                        }
+                        else
+                        {
+                            target.takeDamage(damage, -hit.normal, hit.transform.gameObject);
+                        }
                     }
-                    hit.rigidbody.AddForce(-hit.normal * 15f, ForceMode.Impulse);
+                    if (hit.rigidbody != null)
+                    {
+                        hit.rigidbody.AddForce(-hit.normal * 4f, ForceMode.Impulse);
+                    }
                 }
+            //
 
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("enemy"))
                 {
-                    GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
-                    impactBlood_1.transform.parent = hit.transform;
-                    Destroy(impactBlood_1, 100f);
-                    if (Physics.Raycast(hit.transform.position, mainCamera.transform.forward, out hit_blood, 5f, layerMask2))
+                    if (hit.collider.enabled == true)
+                    {
+                        GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
+                        impactBlood_1.transform.parent = hit.transform;
+                        Destroy(impactBlood_1, 100f);
+                    }
+
+                    if (Physics.Raycast(hit.transform.position, mainCamera.transform.forward, out hit_blood, 8f, layerMask1 | layerMask2))
                     {
                         if (hit_blood.transform.tag == "no_decal")
                         {
@@ -176,8 +200,6 @@ public class Glock_Script : MonoBehaviour
                             GameObject impactBlood_2 = Instantiate(blood_decals, hit_blood.point, Quaternion.LookRotation(-hit_blood.normal));
                             impactBlood_2.transform.parent = hit_blood.transform;
                             impactBlood_2.SetActive(true);
-                            float scale_multiplier = Random.Range(0.5f, 2);
-                            impactBlood_2.transform.localScale = new Vector3(impactBlood_2.transform.localScale.x * scale_multiplier, impactBlood_2.transform.localScale.y * scale_multiplier, impactBlood_2.transform.localScale.z * scale_multiplier);
                             Destroy(impactBlood_2, 100f);
                         }
                     }
@@ -188,14 +210,6 @@ public class Glock_Script : MonoBehaviour
                     impactGO.transform.parent = hit.transform;
                     Destroy(impactGO, 10f);
                 }
-        }
-
-        StartCoroutine(shell_casing());
-        IEnumerator shell_casing()
-        {
-            gun.PlayOneShot(gunshot);
-            yield return new WaitForSeconds(0.1f);
-            shell.PlayOneShot(shell_casing_sound);
         }
 
     }

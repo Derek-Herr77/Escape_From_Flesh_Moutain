@@ -7,20 +7,22 @@ namespace DecalSystem {
 
     public static class TerrainUtils {
 
+        
+       public static IEnumerable<Triangle> GetTriangles(Terrain[] terrains, Bounds bounds, Matrix4x4 worldToDecalMatrix) {
+           return terrains.SelectMany( i => GetTriangles( i, bounds, worldToDecalMatrix ) );
+       }
+       
+       private static IEnumerable<Triangle> GetTriangles(Terrain terrain, Bounds bounds, Matrix4x4 worldToDecalMatrix) {
+           var terrainToWorldMatrix = GetLocalToWorldMatrix( terrain );
+           var terrainToDecalMatrix = worldToDecalMatrix * terrainToWorldMatrix;
 
-        public static IEnumerable<Triangle> GetTriangles(Terrain[] terrains, Bounds bounds, Matrix4x4 worldToDecalMatrix) {
-            return terrains.SelectMany( i => GetTriangles( i, bounds, worldToDecalMatrix ) );
-        }
-        private static IEnumerable<Triangle> GetTriangles(Terrain terrain, Bounds bounds, Matrix4x4 worldToDecalMatrix) {
-            var terrainToWorldMatrix = GetLocalToWorldMatrix( terrain );
-            var terrainToDecalMatrix = worldToDecalMatrix * terrainToWorldMatrix;
+           bounds = Transform( terrainToWorldMatrix.inverse, bounds ); // world to terrain
+           Vector3Int min, max;
+           GetMinMax( bounds, terrain.terrainData, out min, out max );
 
-            bounds = Transform( terrainToWorldMatrix.inverse, bounds ); // world to terrain
-            Vector3Int min, max;
-            GetMinMax( bounds, terrain.terrainData, out min, out max );
-
-            return GetTriangles( terrain.terrainData, min, max ).Select( i => MeshUtils.Transform( terrainToDecalMatrix, i ) );
-        }
+           return GetTriangles( terrain.terrainData, min, max ).Select( i => MeshUtils.Transform( terrainToDecalMatrix, i ) );
+       }
+       
         private static IEnumerable<Triangle> GetTriangles(TerrainData terrain, Vector3Int min, Vector3Int max) {
             for (var z = min.z; z <= max.z; z++) {
                 for (var x = min.x; x <= max.x; x++) {
@@ -57,9 +59,11 @@ namespace DecalSystem {
             return bounds;
         }
 
+        
         private static Triangle Transform(Matrix4x4 matrix, Triangle triangle) {
             return MeshUtils.Transform( matrix, triangle );
         }
+        
 
         private static void GetMinMax(Bounds bounds, TerrainData terrain, out Vector3Int min, out Vector3Int max) {
             min = Vector3Int.FloorToInt( bounds.min );

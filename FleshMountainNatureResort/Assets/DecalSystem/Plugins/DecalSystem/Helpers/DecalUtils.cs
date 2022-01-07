@@ -12,11 +12,10 @@ namespace DecalSystem {
 
         public static MeshFilter[] GetAffectedObjects(Decal decal) {
             var bounds = GetBounds( decal );
-            var isOnlyStatic = decal.gameObject.isStatic;
 
             return GameObject.FindObjectsOfType<MeshRenderer>()
                 .Where( i => i.GetComponent<Decal>() == null ) // ignore another decals
-                .Where( i => i.gameObject.isStatic || !isOnlyStatic )
+                .Where( i => i.gameObject.tag != "enemy")
                 .Where( i => HasLayer( decal.LayerMask, i.gameObject.layer ) )
                 .Where( i => bounds.Intersects( i.bounds ) )
 
@@ -31,7 +30,7 @@ namespace DecalSystem {
             var isOnlyStatic = decal.gameObject.isStatic;
 
             return Terrain.activeTerrains
-                .Where( i => i.gameObject.isStatic || !isOnlyStatic )
+                .Where(i => i.gameObject.tag != "no_decal" && i.gameObject.tag != "enemy")
                 .Where( i => HasLayer( decal.LayerMask, i.gameObject.layer ) )
                 .Where( i => bounds.Intersects( i.GetBounds() ) )
                 .ToArray();
@@ -71,13 +70,13 @@ namespace DecalSystem {
 
 
         public static void SetDirty(Decal decal) {
-            /*
+            
             if (decal.gameObject.scene.IsValid()) {
-                if (!EditorApplication.isPlaying) EditorSceneManager.MarkSceneDirty( decal.gameObject.scene );
+                //if (!EditorApplication.isPlaying) EditorSceneManager.MarkSceneDirty( decal.gameObject.scene );
             } else {
-                EditorUtility.SetDirty( decal.gameObject );
+                //EditorUtility.SetDirty( decal.gameObject );
             }
-            */
+            
         }
 
 

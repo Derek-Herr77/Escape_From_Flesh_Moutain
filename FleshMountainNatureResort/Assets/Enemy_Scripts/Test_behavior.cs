@@ -134,7 +134,7 @@ public class Test_behavior : MonoBehaviour
             animator.SetTrigger("attack");
             has_attacked = true;
             player.gameObject.GetComponent<player_inventory>().health = player.gameObject.GetComponent<player_inventory>().health - 50;
-
+           
             Invoke(nameof(ResetAttack), attack_delay);
         }
     }

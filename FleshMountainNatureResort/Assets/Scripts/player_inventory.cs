@@ -27,7 +27,6 @@ public class player_inventory : MonoBehaviour
         {
             pistol_ammo = pistol_ammo - reload_amount;
         }
-        Debug.Log(pistol_ammo);
     }
 
     public int return_pistol_ammo()
