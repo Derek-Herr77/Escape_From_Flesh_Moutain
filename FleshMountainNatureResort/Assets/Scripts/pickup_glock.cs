@@ -10,10 +10,16 @@ public class pickup_glock : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerStay(Collider other)
     {
-        player = GameObject.Find("player");
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) && other.tag == "Player")
         {
-            player.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            player = other.transform.GetChild(0).GetChild(0).transform.gameObject;
+             foreach (Transform child in player.transform)
+            {
+                if (child.name == "Glock_object")
+                {
+                    other.transform.GetComponent<player_inventory>().set_secondary(child.gameObject);
+                }
+            }
             Destroy(gameObject);
         }
     }

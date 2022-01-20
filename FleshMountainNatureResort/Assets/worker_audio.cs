@@ -8,12 +8,20 @@ public class worker_audio : MonoBehaviour
     public AudioSource audio2_attack_overlay;
     public AudioSource audio3_audio_spikes;
     public AudioClip   alert, attack, death, hit;
+    private float startTime;
 
 
     private void Start()
     {
         audio2_attack_overlay.enabled = false;
     }
+
+    private void PlayOneShot(AudioClip clip, float volume)
+    {
+        audio3_audio_spikes.PlayOneShot(clip, volume);
+        startTime = Time.time;
+    }
+
     public void play_attack_noise()
     {
         audio3_audio_spikes.PlayOneShot(attack);
@@ -41,18 +49,49 @@ public class worker_audio : MonoBehaviour
         IEnumerator kill_ai()
         {
             audio1_norm.enabled = false;
-            audio3_audio_spikes.PlayOneShot(death);
             stop_chase_noise();
-            yield return new WaitForSeconds(3f);
+            audio3_audio_spikes.pitch = Random.Range(0.4f, 1f);
+            audio3_audio_spikes.PlayOneShot(death);
+            StartCoroutine(FadeOut(audio3_audio_spikes, 4f));
+            yield return new WaitForSeconds(4f);
             disable_noises();
         }
     }
     public void play_hit_noise()
     {
-        audio3_audio_spikes.PlayOneShot(hit);
+        if(!isPlaying(hit))
+        {
+            PlayOneShot(hit, 1);
+        }
     }
     public void disable_noises()
     {
         gameObject.SetActive(false);
+    }
+
+
+    //fade_out a noise
+
+
+    IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
+
+    public bool isPlaying(AudioClip clip)
+    {
+        if ((Time.time - startTime) >= clip.length)
+            return false;
+        return true;
     }
 }

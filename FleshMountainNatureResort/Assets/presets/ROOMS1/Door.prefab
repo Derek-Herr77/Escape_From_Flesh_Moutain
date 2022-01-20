@@ -518,7 +518,8 @@ GameObject:
   - component: {fileID: 7625814358887529215}
   - component: {fileID: 7625814358887529212}
   - component: {fileID: 7625814358887529214}
-  m_Layer: 0
+  - component: {fileID: 4438855903553195930}
+  m_Layer: 12
   m_Name: door1
   m_TagString: no_decal
   m_Icon: {fileID: 0}
@@ -651,6 +652,22 @@ MonoBehaviour:
   animator: {fileID: 7625814358887529212}
   close_time: 5
   player_in: 0
+--- !u!208 &4438855903553195930
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625814358887529189}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.15, y: 0.011000001, z: 0.010000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.001, z: 0.011000001}
+  m_TimeToStationary: 0.5
 --- !u!1 &7625814358998121337
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,7 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7625814359140985812}
   - component: {fileID: 7625814359140985813}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: door_slam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -882,7 +899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7625814359175806591}
   - component: {fileID: 7625814359175806588}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: door_noise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5956,7 +5973,7 @@ GameObject:
   - component: {fileID: 7625814360371441900}
   - component: {fileID: 7625814360371441890}
   - component: {fileID: 7625814360371441901}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

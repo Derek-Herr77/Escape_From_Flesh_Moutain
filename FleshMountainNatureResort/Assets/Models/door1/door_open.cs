@@ -10,7 +10,7 @@ public class door_open : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKey(KeyCode.E) && !animator.GetCurrentAnimatorStateInfo(0).IsName("door_operate") && !animator.GetCurrentAnimatorStateInfo(0).IsName("door_operate_close") && !animator.IsInTransition(0))
+        if (Input.GetKey(KeyCode.E) && !animator.GetCurrentAnimatorStateInfo(0).IsName("door_operate") && !animator.GetCurrentAnimatorStateInfo(0).IsName("door_operate_close") && !animator.IsInTransition(0) && other.tag == "Player")
         {
             animator_button.Play("button_press", -1, 0f);
             door.GetComponent<door>().open_door();

@@ -1044,6 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6294fe8dca3c80e458fb2ee8a06947fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sounds: {fileID: 0}
   enemy: {fileID: 3536438151276376793}
   player: {fileID: 0}
   animator: {fileID: 3536438152632944464}
@@ -1099,6 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03581c43d9910c445b9a740699da781e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sounds: {fileID: 0}
   face: {fileID: 2210214402643747584}
   blood_decal: {fileID: 2910645027072066042}
   health: 200

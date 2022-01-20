@@ -108,7 +108,6 @@ public class worker_ai : MonoBehaviour
     {
         if(chased == false)
         {
-            Debug.Log("CALLED");
             sounds.play_chase_noise();
         }
         chased = true;

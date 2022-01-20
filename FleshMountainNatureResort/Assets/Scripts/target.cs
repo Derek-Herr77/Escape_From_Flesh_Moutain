@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class target : MonoBehaviour
 {
     // Start is called before the first frame update
+    public MonoBehaviour ai_script;
     public worker_audio sounds;
     public GameObject face;
     public GameObject blood_decal;
@@ -36,11 +37,11 @@ public class target : MonoBehaviour
         }
     }
 
-    public void forceRagdoll(Vector3 normal)
+    public void forceRagdoll(Vector3 normal, float force_strength)
     {
         foreach (var rigidBody in colliders)
         {
-            rigidBody.AddForce(normal * 4f, ForceMode.VelocityChange);
+            rigidBody.AddForce(normal * force_strength, ForceMode.VelocityChange);
         }
     }
 
@@ -48,13 +49,17 @@ public class target : MonoBehaviour
     // Update is called once per frame
 
     //TAKE DAMAGE DISMEMBERMENT
-    public void takeDamage(int damage, Vector3 normal, GameObject body_part)
+    public void takeDamage(int damage, Vector3 normal, GameObject body_part, float force_strength)
     {
-        if (death_check == false)
-        {
-            sounds.play_hit_noise();
-        }
-            anim.Play("metarig|hit", -1, 0f);
+            if (death_check == false)
+            {
+                sounds.play_hit_noise();
+            }
+            //check for hit animation
+            if (transform.gameObject.name.Contains("man_worker"))
+            {
+                anim.Play("metarig|hit", -1, 0f);
+            }
             health = health - damage;
 
             GameObject impactBlood = Instantiate(blood_decal, gameObject.transform.position, blood_decal.transform.rotation);
@@ -73,16 +78,19 @@ public class target : MonoBehaviour
             {
                 death();
                 enableRagdoll();
-                forceRagdoll(normal);
+                forceRagdoll(normal, force_strength);
             }
     }
 
     //TAKE DAMAGE NO DISMEBERMENT
-    public void takeDamage(int damage, Vector3 normal)
+    public void takeDamage(int damage, Vector3 normal,float force_strength)
     {
         if (death_check == false)
         {
-            anim.Play("metarig|hit", -1, 0f);
+            if(transform.gameObject.name == "man_worker_1")
+            {
+                anim.Play("metarig|hit", -1, 0f);
+            }
             sounds.play_hit_noise();
             health = health - damage;
 
@@ -93,22 +101,22 @@ public class target : MonoBehaviour
             {
                 death();
                 enableRagdoll();
-                forceRagdoll(normal);
+                forceRagdoll(normal, force_strength);
             }
         }
     }
 
-    public void headshot(int damage, Vector3 normal)
+    public void headshot(int damage, Vector3 normal, float force_strength)
     {
-        if (death_check == false)
-        {
-            sounds.play_hit_noise();
-        }
+            if (death_check == false)
+            {
+                sounds.play_hit_noise();
+            }
             if (health - (damage * 2) <= 0)
             {
                 face.transform.localScale = new Vector3(0f, 0f, 0f);
             }
-            takeDamage(damage * 2, normal);
+            takeDamage(damage * 2, normal, force_strength);
     }
 
     public void death()
@@ -118,7 +126,7 @@ public class target : MonoBehaviour
             sounds.play_death_noise();
             death_check = true;
             anim.enabled = false;
-            GetComponent<worker_ai>().enabled = false;
+            ai_script.enabled = false;
             GetComponent<NavMeshAgent>().enabled = false;
         }
     }

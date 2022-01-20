@@ -5,6 +5,7 @@ using UnityEngine;
 public class Glock_Script : MonoBehaviour
 {
     // Start is called before the first frame update
+    private player_audio_manager player_sounds;
     public GameObject glock;
     public GameObject player;
     public Camera mainCamera;
@@ -30,6 +31,7 @@ public class Glock_Script : MonoBehaviour
     public int magazine_size = 10;
     public int ammo_in_magazine = 10;
     public float recoil_strength;
+    public float force_strength = 4f;
     //
     public Vector3 up_recoil;
 
@@ -38,11 +40,13 @@ public class Glock_Script : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("player");
+        player_sounds = player.GetComponent<player_audio_manager>();
         animator = glock.GetComponent<Animator>();
     }
     void Update()
     {
         gunOperations();
+        animator.SetInteger("ammo", ammo_in_magazine);
     }
 
     private void gunOperations()
@@ -88,12 +92,18 @@ public class Glock_Script : MonoBehaviour
         }
 
         isWalking_check();
-
-
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("glock_flip") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty 0"))
+    }
+    public void reload_sounds()
+    {
+        if (ammo_in_magazine == 0)
         {
-            reload();
+            gun.PlayOneShot(reload_noise);
         }
+        else
+        {
+            gun.PlayOneShot(reload_noise_2);
+        }
+        
     }
 
     public void reload()
@@ -103,14 +113,6 @@ public class Glock_Script : MonoBehaviour
 
         if (reload_amount > 0)
         {
-            if (ammo_in_magazine == 0)
-            {
-                gun.PlayOneShot(reload_noise);
-            }
-            else
-            {
-                gun.PlayOneShot(reload_noise_2);
-            }
             if (reload_amount >= player_ammo)
             {
                 reload_amount = player_ammo;
@@ -159,16 +161,17 @@ public class Glock_Script : MonoBehaviour
             //HIT FORCE
                 if(hit.rigidbody != null)
                 {
-                    if (hit.transform.GetComponent<target>() != null || hit.transform.root.GetComponent<target>() != null)
+                    if (hit.transform.GetComponent<target>() != null || hit.transform.GetComponentInParent<target>() != null)
                     {
-                        target target = hit.transform.root.GetComponent<target>();
-                        if(hit.transform.name == "spine.006")
+                        target target = hit.transform.GetComponentInParent<target>();
+                        if(hit.transform.name == "head")
                         {
-                            target.headshot(damage, -hit.normal);
+                            target.headshot(damage, -hit.normal, force_strength);
+                            player_sounds.play_headshot_crack();
                         }
                         else
                         {
-                            target.takeDamage(damage, -hit.normal, hit.transform.gameObject);
+                            target.takeDamage(damage, -hit.normal, hit.transform.gameObject, force_strength);
                         }
                     }
                     if (hit.rigidbody != null)
@@ -251,7 +254,7 @@ public class Glock_Script : MonoBehaviour
 
     public void isWalking_check()
     {
-        if ((Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.x) > 0.01f || Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.z) > 0.01f) && !player.GetComponent<FirstPersonAIO>().aiming == true)
+        if ((Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.x) > 0.05f || Mathf.Abs(player.GetComponent<FirstPersonAIO>().fps_Rigidbody.velocity.z) > 0.05f) && !player.GetComponent<FirstPersonAIO>().aiming == true)
         {
             animator.SetBool("isWalk", true);
         }
