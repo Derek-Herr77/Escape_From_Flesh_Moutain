@@ -26,28 +26,7 @@ public class player_inventory : MonoBehaviour
         {
             death();
         }
-
-        //weapon switching
-        if (Input.mouseScrollDelta.y != 0f && primary_gun != null && secondary_gun != null)
-        {
-            equiped_gun.transform.GetChild(0).GetComponent<Animator>().SetTrigger("switch");
-        }
-
-        if (equiped_gun != null)
-        {
-            if (!equiped_gun.transform.GetChild(0).GetComponent<Animator>().IsInTransition(0) && (equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch") || (equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch_empty"))))
-            {
-                if (equiped_gun == primary_gun)
-                {
-                    set_equiped(secondary_gun);
-                }
-                else
-                {
-                    set_equiped(primary_gun);
-                }
-            }
-        }
-
+        weapon_switch();
     }
 
     public void reload_pistol(int reload_amount)
@@ -99,4 +78,29 @@ public class player_inventory : MonoBehaviour
             equiped_gun.SetActive(true);
         }
     }
+    public void weapon_switch()
+    {
+        //weapon switching
+        if (Input.mouseScrollDelta.y != 0f && primary_gun != null && secondary_gun != null 
+            && !equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch") 
+            && !equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("non_switchable"))
+        {
+            equiped_gun.transform.GetChild(0).GetComponent<Animator>().SetTrigger("switch");
+        }
+        if (equiped_gun != null)
+        {
+            if (equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch"))
+            {
+                if (equiped_gun == primary_gun)
+                {
+                    set_equiped(secondary_gun);
+                }
+                else
+                {
+                    set_equiped(primary_gun);
+                }
+            }
+        }
+    }
 }
+

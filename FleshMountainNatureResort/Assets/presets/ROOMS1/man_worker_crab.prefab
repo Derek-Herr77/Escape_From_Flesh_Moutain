@@ -1518,7 +1518,7 @@ MonoBehaviour:
   spider: {fileID: 5645852112610334771}
   man_mesh: {fileID: 5104437871350778881}
   spider_delay: 5
-  spider_chance_percent: 100
+  spider_chance_percent: 33
 --- !u!1 &5760103664686923593
 GameObject:
   m_ObjectHideFlags: 0
