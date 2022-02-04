@@ -6,6 +6,7 @@ public class player_inventory : MonoBehaviour
 {
     public int pistol_ammo = 20;
     public int smg_ammo = 100;
+    public int shotgun_ammo = 5;
     // Update is called once per frame
     public int health = 100;
     private FirstPersonAIO player_script;
@@ -37,9 +38,30 @@ public class player_inventory : MonoBehaviour
         }
     }
 
+    public void reload_smg(int reload_amount)
+    {
+        if (smg_ammo > 0)
+        {
+            smg_ammo = smg_ammo - reload_amount;
+        }
+    }
+
+    public void reload_shotgun(int reload_amount)
+    {
+        if (shotgun_ammo > 0)
+        {
+            shotgun_ammo = shotgun_ammo - reload_amount;
+        }
+    }
+
     public int return_pistol_ammo()
     {
         return pistol_ammo;
+    }
+
+    public int return_shotgun_ammo()
+    {
+        return shotgun_ammo;
     }
 
     public int return_smg_ammo()
@@ -87,6 +109,7 @@ public class player_inventory : MonoBehaviour
         {
             equiped_gun.transform.GetChild(0).GetComponent<Animator>().SetTrigger("switch");
         }
+
         if (equiped_gun != null)
         {
             if (equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch"))

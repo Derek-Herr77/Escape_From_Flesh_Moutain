@@ -120,7 +120,7 @@ public class smg_script : MonoBehaviour
     public void reload_script()
     {
         int reload_amount = magazine_size - ammo_in_magazine;
-        int player_ammo = player.GetComponent<player_inventory>().return_pistol_ammo();
+        int player_ammo = player.GetComponent<player_inventory>().return_smg_ammo();
 
         if (reload_amount > 0)
         {
@@ -128,12 +128,12 @@ public class smg_script : MonoBehaviour
             {
                 reload_amount = player_ammo;
                 ammo_in_magazine = ammo_in_magazine + player_ammo;
-                player.GetComponent<player_inventory>().reload_pistol(reload_amount);
+                player.GetComponent<player_inventory>().reload_smg(reload_amount);
             }
             else
             {
                 ammo_in_magazine = ammo_in_magazine + reload_amount;
-                player.GetComponent<player_inventory>().reload_pistol(reload_amount);
+                player.GetComponent<player_inventory>().reload_smg(reload_amount);
             }
         }
     }

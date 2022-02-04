@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Glock_Script : MonoBehaviour
 {
-    // Start is called before the first frame update
     private player_audio_manager player_sounds;
     public GameObject glock;
     public GameObject player;
@@ -42,6 +41,7 @@ public class Glock_Script : MonoBehaviour
         player = GameObject.Find("player");
         player_sounds = player.GetComponent<player_audio_manager>();
         animator = glock.GetComponent<Animator>();
+        animator.SetInteger("ammo", ammo_in_magazine);
     }
     void Update()
     {
@@ -263,5 +263,20 @@ public class Glock_Script : MonoBehaviour
             animator.SetBool("isWalk", false);
         }
     }
-    
+
+
+    /// <summary>
+    /// This section of animation checks if the switch was successful before switching the gun. This prevents the animation from clipping when switching a gun
+    /// </summary>
+    public void set_check_true()
+    {
+        animator.SetBool("check", true);
+    }
+
+    public void set_check_false()
+    {
+        animator.SetBool("check", false);
+    }
+
+
 }

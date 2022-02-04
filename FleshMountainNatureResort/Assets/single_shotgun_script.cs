@@ -46,7 +46,7 @@ public class single_shotgun_script : MonoBehaviour
     void Update()
     {
         gunOperations();
-
+        animator.SetInteger("ammo", ammo_in_magazine);
         //switch gun
         //if (Input.GetKeyDown(KeyCode.P))
         //{
@@ -72,7 +72,7 @@ public class single_shotgun_script : MonoBehaviour
                 shoot();
                 recoil();
             }
-            if (ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("aim")) && !animator.IsInTransition(0) && animator.GetBool("reload") != true && player.GetComponent<FirstPersonAIO>().isSprinting == false)
+            if (ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("idle_empty") || animator.GetCurrentAnimatorStateInfo(0).IsName("aim")) && !animator.IsInTransition(0) && animator.GetBool("reload") != true && player.GetComponent<FirstPersonAIO>().isSprinting == false)
             {
                 shoot_empty();
             }
@@ -80,7 +80,7 @@ public class single_shotgun_script : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            int player_ammo = player.GetComponent<player_inventory>().return_pistol_ammo();
+            int player_ammo = player.GetComponent<player_inventory>().return_shotgun_ammo();
             if (player_ammo > 0 && !animator.GetCurrentAnimatorStateInfo(0).IsName("reload") && !animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty"))
             {
                 reload_animation();
@@ -120,20 +120,22 @@ public class single_shotgun_script : MonoBehaviour
     public void reload_script()
     {
         int reload_amount = magazine_size - ammo_in_magazine;
-        int player_ammo = player.GetComponent<player_inventory>().return_pistol_ammo();
+        int player_ammo = player.GetComponent<player_inventory>().return_shotgun_ammo();
 
         if (reload_amount > 0)
         {
             if (reload_amount >= player_ammo)
             {
+                animator.SetBool("empty", true);
                 reload_amount = player_ammo;
                 ammo_in_magazine = ammo_in_magazine + player_ammo;
-                player.GetComponent<player_inventory>().reload_pistol(reload_amount);
+                player.GetComponent<player_inventory>().reload_shotgun(reload_amount);
             }
             else
             {
+                animator.SetBool("empty", true);
                 ammo_in_magazine = ammo_in_magazine + reload_amount;
-                player.GetComponent<player_inventory>().reload_pistol(reload_amount);
+                player.GetComponent<player_inventory>().reload_shotgun(reload_amount);
             }
         }
     }
@@ -150,6 +152,10 @@ public class single_shotgun_script : MonoBehaviour
         animator.SetTrigger("fire");
         //}
         ammo_in_magazine -= 1;
+        if(ammo_in_magazine <= 0)
+        {
+            animator.SetBool("empty", true);
+        }
         muzzle_flash.Play();
         muzzle_smoke.Play();
 
@@ -280,5 +286,17 @@ public class single_shotgun_script : MonoBehaviour
     //{
     //animator.SetTrigger("switch");
 
+    /// <summary>
+    /// This section of animation checks if the switch was successful before switching the gun. This prevents the animation from clipping when switching a gun
+    /// </summary>
+    public void set_check_true()
+    {
+        animator.SetBool("check", true);
+    }
+
+    public void set_check_false()
+    {
+        animator.SetBool("check", false);
+    }
 
 }

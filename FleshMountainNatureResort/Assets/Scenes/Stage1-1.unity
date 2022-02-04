@@ -11572,6 +11572,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6470019164426709659, guid: 5e188ffd605263946871c685c132adea,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06752558
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470019164426709659, guid: 5e188ffd605263946871c685c132adea,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0675257
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470019164426709659, guid: 5e188ffd605263946871c685c132adea,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0675257
+      objectReference: {fileID: 0}
     - target: {fileID: 6470019164634236498, guid: 5e188ffd605263946871c685c132adea,
         type: 3}
       propertyPath: m_IsActive
@@ -11580,12 +11595,12 @@ PrefabInstance:
     - target: {fileID: 6470019164740592758, guid: 5e188ffd605263946871c685c132adea,
         type: 3}
       propertyPath: smooth
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6470019164740592758, guid: 5e188ffd605263946871c685c132adea,
         type: 3}
       propertyPath: swayMultiplier
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6470019164740592763, guid: 5e188ffd605263946871c685c132adea,
         type: 3}
