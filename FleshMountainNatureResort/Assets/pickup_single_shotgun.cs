@@ -17,7 +17,14 @@ public class pickup_single_shotgun : MonoBehaviour
             {
                 if (child.name == "single_shotgun_object")
                 {
-                    other.transform.GetComponent<player_inventory>().set_primary(child.gameObject);
+                    if (other.transform.GetComponent<player_inventory>().has_equiped_gun())
+                    {
+                        other.transform.GetComponent<player_inventory>().weapon_switch_pickup_primary(child.gameObject);
+                    }
+                    else
+                    {
+                        other.transform.GetComponent<player_inventory>().set_primary(child.gameObject);
+                    }
                 }
             }
             Destroy(gameObject);

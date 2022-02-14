@@ -72,7 +72,7 @@ public class single_shotgun_script : MonoBehaviour
                 shoot();
                 recoil();
             }
-            if (ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("idle_empty") || animator.GetCurrentAnimatorStateInfo(0).IsName("aim")) && !animator.IsInTransition(0) && animator.GetBool("reload") != true && player.GetComponent<FirstPersonAIO>().isSprinting == false)
+            if (ammo_in_magazine == 0 && (animator.GetCurrentAnimatorStateInfo(0).IsName("idle_empty") || animator.GetCurrentAnimatorStateInfo(0).IsName("aim_empty")) && !animator.IsInTransition(0) && animator.GetBool("reload") != true && player.GetComponent<FirstPersonAIO>().isSprinting == false)
             {
                 shoot_empty();
             }
@@ -204,6 +204,7 @@ public class single_shotgun_script : MonoBehaviour
                 if (hit.collider.enabled == true)
                 {
                     GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactBlood_1.SetActive(true);
                     impactBlood_1.transform.parent = hit.transform;
                     Destroy(impactBlood_1, 100f);
                 }
@@ -214,6 +215,7 @@ public class single_shotgun_script : MonoBehaviour
                     {
                         GameObject impactBlood_2 = Instantiate(impactBlood, hit_blood.point, Quaternion.LookRotation(hit_blood.normal));
                         impactBlood_2.transform.parent = hit_blood.transform;
+                        impactBlood_2.SetActive(true);
                         Destroy(impactBlood_2, 100f);
                     }
                     else
@@ -229,6 +231,7 @@ public class single_shotgun_script : MonoBehaviour
             {
                 GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
                 impactGO.transform.parent = hit.transform;
+                impactGO.SetActive(true);
                 Destroy(impactGO, 10f);
             }
         }

@@ -125,5 +125,42 @@ public class player_inventory : MonoBehaviour
             }
         }
     }
+
+    public void weapon_switch_pickup_primary(GameObject primary)
+    {
+        primary_gun = primary;
+        equiped_gun.transform.GetChild(0).GetComponent<Animator>().SetTrigger("switch");
+
+        if(equiped_gun != null)
+        {
+            if (equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch"))
+            {
+                 set_equiped(primary_gun);
+            }
+        }
+    }
+
+    public void weapon_switch_pickup_secondary(GameObject secondary)
+    {
+        secondary_gun = secondary;
+        equiped_gun.transform.GetChild(0).GetComponent<Animator>().SetTrigger("switch");
+
+        if (equiped_gun != null)
+        {
+            if (equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch"))
+            {
+                set_equiped(secondary_gun);
+            }
+        }
+    }
+
+    public bool has_equiped_gun()
+    {
+        if(equiped_gun != null)
+        {
+            return true;
+        }
+        return false;
+    }
 }
 
