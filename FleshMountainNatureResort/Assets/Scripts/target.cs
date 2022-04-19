@@ -51,10 +51,9 @@ public class target : MonoBehaviour
     //TAKE DAMAGE DISMEMBERMENT
     public void takeDamage(int damage, Vector3 normal, GameObject body_part, float force_strength)
     {
-            if (death_check == false)
-            {
-                sounds.play_hit_noise();
-            }
+        if (death_check == false)
+        {
+            sounds.play_hit_noise();
             //check for hit animation
             if (transform.gameObject.name.Contains("man_worker"))
             {
@@ -65,7 +64,7 @@ public class target : MonoBehaviour
             GameObject impactBlood = Instantiate(blood_decal, gameObject.transform.position, blood_decal.transform.rotation);
             impactBlood.SetActive(true);
             Destroy(impactBlood, 100f);
-
+        }
 
             if (body_part.transform.name == "forearm.L")
             {
