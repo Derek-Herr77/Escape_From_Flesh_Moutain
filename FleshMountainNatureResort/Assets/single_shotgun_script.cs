@@ -221,7 +221,7 @@ public class single_shotgun_script : MonoBehaviour
                     else
                     {
                         GameObject impactBlood_2 = Instantiate(blood_decals, hit_blood.point, Quaternion.LookRotation(-hit_blood.normal));
-                        impactBlood_2.transform.parent = hit_blood.transform;
+                        //impactBlood_2.transform.parent = hit_blood.transform;
                         impactBlood_2.SetActive(true);
                         Destroy(impactBlood_2, 100f);
                     }
