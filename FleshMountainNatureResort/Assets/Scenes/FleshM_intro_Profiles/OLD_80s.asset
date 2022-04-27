@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
   m_Name: Grain
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -53,6 +53,55 @@ MonoBehaviour:
     value: 0.2
   fastMode:
     overrideState: 1
+    value: 0
+--- !u!114 &-5276774628737186245
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e1b3a3f18dad1429c9ecc7e1db2274, type: 3}
+  m_Name: Sunshafts
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  useCasterColor:
+    overrideState: 0
+    value: 1
+  useCasterIntensity:
+    overrideState: 0
+    value: 0
+  sunShaftIntensity:
+    overrideState: 1
+    value: 1
+  blendMode:
+    overrideState: 0
+    value: 1
+  resolution:
+    overrideState: 0
+    value: 2
+  highQuality:
+    overrideState: 0
+    value: 0
+  sunThreshold:
+    overrideState: 0
+    value: {r: 0, g: 0, b: 0, a: 1}
+  sunColor:
+    overrideState: 0
+    value: {r: 1, g: 1, b: 1, a: 1}
+  falloff:
+    overrideState: 0
+    value: 0.5
+  length:
+    overrideState: 0
+    value: 10
+  noiseStrength:
+    overrideState: 0
     value: 0
 --- !u!114 &-4860099252909408839
 MonoBehaviour:
@@ -101,6 +150,25 @@ MonoBehaviour:
   dirtIntensity:
     overrideState: 0
     value: 0
+--- !u!114 &-2012544410197217503
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dfc0ecd934e74246bcf9791abe617b0, type: 3}
+  m_Name: Pixelize
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  amount:
+    overrideState: 1
+    value: 0.04
 --- !u!114 &-1171026028207242686
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -194,6 +262,31 @@ MonoBehaviour:
   quality:
     overrideState: 0
     value: 4
+--- !u!114 &-542114939740854030
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae979ba049e535429dde8ab92b28488, type: 3}
+  m_Name: Scanlines
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 0.1
+  amount:
+    overrideState: 1
+    value: 500
+  speed:
+    overrideState: 1
+    value: 0.3
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,44 +308,12 @@ MonoBehaviour:
   - {fileID: -7872790923545831528}
   - {fileID: 2057993902385195095}
   - {fileID: -6690823533941959409}
-  - {fileID: 186069208269591211}
---- !u!114 &186069208269591211
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
-  m_Name: ScreenSpaceReflections
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  preset:
-    overrideState: 1
-    value: 2
-  maximumIterationCount:
-    overrideState: 0
-    value: 16
-  resolution:
-    overrideState: 0
-    value: 0
-  thickness:
-    overrideState: 0
-    value: 8
-  maximumMarchDistance:
-    overrideState: 1
-    value: 100
-  distanceFade:
-    overrideState: 1
-    value: 1
-  vignette:
-    overrideState: 1
-    value: 0.094
+  - {fileID: -542114939740854030}
+  - {fileID: 5074960530142287520}
+  - {fileID: 4236787823681153541}
+  - {fileID: -5276774628737186245}
+  - {fileID: -2012544410197217503}
+  - {fileID: 5007991245406993560}
 --- !u!114 &2057993902385195095
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1564,6 +1625,28 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
+--- !u!114 &4236787823681153541
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb18596b54f897e47b3e758ff2305d7f, type: 3}
+  m_Name: ColorSplit
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 2
+  offset:
+    overrideState: 1
+    value: 0.1
 --- !u!114 &4274033862234410405
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1614,3 +1697,157 @@ MonoBehaviour:
   kernelSize:
     overrideState: 1
     value: 3
+--- !u!114 &5007991245406993560
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74483714bbf784b45b0c9c7c76035dd8, type: 3}
+  m_Name: Fog
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  useSceneSettings:
+    overrideState: 0
+    value: 0
+  fogMode:
+    overrideState: 1
+    value: 2
+  globalDensity:
+    overrideState: 1
+    value: 0.6
+  fogStartDistance:
+    overrideState: 1
+    value: 0
+  fogEndDistance:
+    overrideState: 0
+    value: 600
+  colorSource:
+    overrideState: 1
+    value: 0
+  skyboxMipLevel:
+    overrideState: 0
+    value: 0
+  fogColor:
+    overrideState: 1
+    value: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 1}
+  fogColorGradient:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  gradientDistance:
+    overrideState: 0
+    value: 1000
+  gradientUseFarClipPlane:
+    overrideState: 0
+    value: 1
+  distanceFog:
+    overrideState: 1
+    value: 1
+  distanceDensity:
+    overrideState: 1
+    value: 1
+  useRadialDistance:
+    overrideState: 1
+    value: 1
+  skyboxInfluence:
+    overrideState: 0
+    value: 1
+  enableDirectionalLight:
+    overrideState: 0
+    value: 0
+  useLightDirection:
+    overrideState: 0
+    value: 1
+  useLightColor:
+    overrideState: 0
+    value: 1
+  useLightIntensity:
+    overrideState: 0
+    value: 1
+  lightColor:
+    overrideState: 0
+    value: {r: 1, g: 0.89, b: 0.55, a: 1}
+  lightDirection:
+    overrideState: 0
+    value: {x: 0, y: 0.5, z: -1}
+  lightIntensity:
+    overrideState: 0
+    value: 1
+  heightFog:
+    overrideState: 0
+    value: 1
+  height:
+    overrideState: 0
+    value: 10
+  heightDensity:
+    overrideState: 0
+    value: 0.75
+  heightFogNoise:
+    overrideState: 0
+    value: 0
+  heightNoiseTex:
+    overrideState: 0
+    value: {fileID: 2800000, guid: 82a8d5f38e2ccf44c86362214b2d3e5e, type: 3}
+    defaultState: 1
+  heightNoiseSize:
+    overrideState: 0
+    value: 0.25
+  heightNoiseStrength:
+    overrideState: 0
+    value: 1
+  heightNoiseSpeed:
+    overrideState: 0
+    value: 2
+  lightScattering:
+    overrideState: 0
+    value: 0
+  scatterIntensity:
+    overrideState: 0
+    value: 10
+  scatterThreshold:
+    overrideState: 0
+    value: 1
+  scatterDiffusion:
+    overrideState: 0
+    value: 10
+  scatterSoftKnee:
+    overrideState: 0
+    value: 0.5
+--- !u!114 &5074960530142287520
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e21a9f18817d444b2c00478e04a58e, type: 3}
+  m_Name: Posterize
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  hsvMode:
+    overrideState: 1
+    value: 0
+  levels:
+    overrideState: 1
+    value: 14
+  hue:
+    overrideState: 1
+    value: 256
+  saturation:
+    overrideState: 1
+    value: 100
+  value:
+    overrideState: 1
+    value: 20

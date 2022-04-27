@@ -16,18 +16,22 @@ public class WeaponSway : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
         float mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
 
-        if (mouseX > 20 || mouseX < -20)
+        if(transform.name != "Flash_light")
         {
-            if (mouseX > 20) { mouseX = 20; }
-            else { mouseX = -20; }
-        }
+            if (mouseX > 20 || mouseX < -20)
+            {
+                if (mouseX > 20) { mouseX = 20; }
+                else { mouseX = -20; }
+            }
 
-        if (mouseY > 20 || mouseY < -20)
-        {
-            if (mouseY > 20) { mouseY = 20; }
-            else { mouseY = -20; }
+            if (mouseY > 20 || mouseY < -20)
+            {
+                if (mouseY > 20) { mouseY = 20; }
+                else { mouseY = -20; }
+            }
         }
-
+        
+        
 
         Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
         Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
