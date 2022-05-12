@@ -25,6 +25,7 @@ public class single_shotgun_script : MonoBehaviour
     public AudioClip shell_casing_sound;
     public AudioClip empty_fire;
     public GameObject impact;
+    public GameObject impactMetal;
     public GameObject impactBlood;
     public GameObject blood_decals;
     public int decal_count = 15;
@@ -204,8 +205,8 @@ public class single_shotgun_script : MonoBehaviour
                 if (hit.collider.enabled == true)
                 {
                     GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
-                    impactBlood_1.SetActive(true);
                     impactBlood_1.transform.parent = hit.transform;
+                    impactBlood_1.SetActive(true);
                     Destroy(impactBlood_1, 100f);
                 }
 
@@ -229,10 +230,20 @@ public class single_shotgun_script : MonoBehaviour
             }
             else
             {
-                GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-                impactGO.transform.parent = hit.transform;
-                impactGO.SetActive(true);
-                Destroy(impactGO, 10f);
+                if (hit.transform.GetComponent<MeshCollider>() != null && hit.transform.GetComponent<MeshCollider>().sharedMaterial.name == "Metal")
+                {
+                    GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactGO.transform.parent = hit.transform;
+                    impactGO.SetActive(true);
+                    Destroy(impactGO, 10f);
+                }
+                else
+                {
+                    GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactGO.transform.parent = hit.transform;
+                    impactGO.SetActive(true);
+                    Destroy(impactGO, 10f);
+                }
             }
         }
 

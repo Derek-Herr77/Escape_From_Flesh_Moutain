@@ -280,7 +280,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.1
+    value: 0.05
   amount:
     overrideState: 1
     value: 500

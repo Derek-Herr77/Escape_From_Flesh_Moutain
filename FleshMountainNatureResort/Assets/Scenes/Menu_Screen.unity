@@ -1056,8 +1056,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.3
-  m_Range: 5
+  m_Intensity: 7
+  m_Range: 7
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2238,6 +2238,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2326450532843995300, guid: 8c1da42c80b67a34baf55998b1c602ce,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326450532843995300, guid: 8c1da42c80b67a34baf55998b1c602ce,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.7
       objectReference: {fileID: 0}
@@ -2253,6 +2258,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2326450532843995300, guid: 8c1da42c80b67a34baf55998b1c602ce,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.017582128
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326450532843995300, guid: 8c1da42c80b67a34baf55998b1c602ce,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.017581563
       objectReference: {fileID: 0}
@@ -2265,16 +2275,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.7068879
-      objectReference: {fileID: 0}
-    - target: {fileID: 2326450532843995300, guid: 8c1da42c80b67a34baf55998b1c602ce,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.017582128
-      objectReference: {fileID: 0}
-    - target: {fileID: 2326450532843995300, guid: 8c1da42c80b67a34baf55998b1c602ce,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2326450532843995300, guid: 8c1da42c80b67a34baf55998b1c602ce,
         type: 3}
@@ -5118,8 +5118,76 @@ MonoBehaviour:
   m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
-  m_BeforeStackBundles: []
-  m_AfterStackBundles: []
+  m_BeforeStackBundles:
+  - assemblyQualifiedName: SCPE.Caustics, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.CloudShadows, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.EdgeDetection, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Fog, sc.posteffects.runtime, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.LensFlares, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.LightStreaks, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Pixelize, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Posterize, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Sketch, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  m_AfterStackBundles:
+  - assemblyQualifiedName: SCPE.AmbientOcclusion2D, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.BlackBars, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Blur, sc.posteffects.runtime, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.ColorSplit, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Colorize, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Danger, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Dithering, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.DoubleVision, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Gradient, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.HueShift3D, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Kaleidoscope, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Kuwahara, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.LUT, sc.posteffects.runtime, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Mosaic, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Overlay, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.RadialBlur, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Refraction, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Ripples, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Scanlines, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Sharpen, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.SpeedLines, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Sunshafts, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.TiltShift, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.Transition, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - assemblyQualifiedName: SCPE.TubeDistortion, sc.posteffects.runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &2064081946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5454,6 +5522,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7817801241285250525, guid: f18787f7c18061b4491cc736b0a9a4f3,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817801241285250525, guid: f18787f7c18061b4491cc736b0a9a4f3,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.6760246
       objectReference: {fileID: 0}
@@ -5469,6 +5542,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7817801241285250525, guid: f18787f7c18061b4491cc736b0a9a4f3,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817801241285250525, guid: f18787f7c18061b4491cc736b0a9a4f3,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -5481,16 +5559,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7817801241285250525, guid: f18787f7c18061b4491cc736b0a9a4f3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7817801241285250525, guid: f18787f7c18061b4491cc736b0a9a4f3,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7817801241285250525, guid: f18787f7c18061b4491cc736b0a9a4f3,
         type: 3}
@@ -5512,5 +5580,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Post-process Volume
       objectReference: {fileID: 0}
+    - target: {fileID: 7817801241285250527, guid: f18787f7c18061b4491cc736b0a9a4f3,
+        type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: fd37d730d7bde6442bf5032c7ba31443,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f18787f7c18061b4491cc736b0a9a4f3, type: 3}

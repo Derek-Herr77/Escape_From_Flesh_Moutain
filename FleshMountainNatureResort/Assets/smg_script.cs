@@ -25,6 +25,7 @@ public class smg_script : MonoBehaviour
     public AudioClip shell_casing_sound;
     public AudioClip empty_fire;
     public GameObject impact;
+    public GameObject impactMetal;
     public GameObject impactBlood;
     public GameObject blood_decals;
     public int decal_count = 15;
@@ -80,7 +81,7 @@ public class smg_script : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            int player_ammo = player.GetComponent<player_inventory>().return_pistol_ammo();
+            int player_ammo = player.GetComponent<player_inventory>().return_smg_ammo();
             if (player_ammo > 0 && !animator.GetCurrentAnimatorStateInfo(0).IsName("reload") && !animator.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty"))
             {
                 reload_animation();
@@ -199,6 +200,7 @@ public class smg_script : MonoBehaviour
                 {
                     GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
                     impactBlood_1.transform.parent = hit.transform;
+                    impactBlood_1.SetActive(true);
                     Destroy(impactBlood_1, 100f);
                 }
 
@@ -207,6 +209,8 @@ public class smg_script : MonoBehaviour
                     if (hit_blood.transform.tag == "no_decal")
                     {
                         GameObject impactBlood_2 = Instantiate(impactBlood, hit_blood.point, Quaternion.LookRotation(hit_blood.normal));
+                        impactBlood_2.transform.parent = hit_blood.transform;
+                        impactBlood_2.SetActive(true);
                         Destroy(impactBlood_2, 100f);
                     }
                     else
@@ -220,9 +224,20 @@ public class smg_script : MonoBehaviour
             }
             else
             {
-                GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-                impactGO.transform.parent = hit.transform;
-                Destroy(impactGO, 10f);
+                if (hit.collider.sharedMaterial != null && hit.collider.sharedMaterial.name == "Metal")
+                {
+                    GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactGO.transform.parent = hit.transform;
+                    impactGO.SetActive(true);
+                    Destroy(impactGO, 10f);
+                }
+                else
+                {
+                    GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactGO.transform.parent = hit.transform;
+                    impactGO.SetActive(true);
+                    Destroy(impactGO, 10f);
+                }
             }
         }
 

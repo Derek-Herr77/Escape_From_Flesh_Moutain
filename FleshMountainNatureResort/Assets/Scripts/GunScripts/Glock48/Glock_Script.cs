@@ -24,6 +24,7 @@ public class Glock_Script : MonoBehaviour
     public AudioClip empty_fire;
     public GameObject impact;
     public GameObject impactBlood;
+    public GameObject impactMetal;
     public GameObject blood_decals;
     public int decal_count = 15;
     //ammo and magazine
@@ -187,6 +188,7 @@ public class Glock_Script : MonoBehaviour
                     {
                         GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
                         impactBlood_1.transform.parent = hit.transform;
+                        impactBlood_1.SetActive(true);
                         Destroy(impactBlood_1, 100f);
                     }
 
@@ -196,6 +198,7 @@ public class Glock_Script : MonoBehaviour
                         {
                             GameObject impactBlood_2 = Instantiate(impactBlood, hit_blood.point, Quaternion.LookRotation(hit_blood.normal));
                             impactBlood_2.transform.parent = hit_blood.transform;
+                            impactBlood_2.SetActive(true);
                             Destroy(impactBlood_2, 100f);
                         }
                         else
@@ -209,9 +212,20 @@ public class Glock_Script : MonoBehaviour
                 }
                 else
                 {
-                    GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-                    impactGO.transform.parent = hit.transform;
-                    Destroy(impactGO, 10f);
+                    if (hit.transform.GetComponent<MeshCollider>() != null && hit.transform.GetComponent<MeshCollider>().sharedMaterial.name == "Metal")
+                    {   
+                        GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
+                        impactGO.transform.parent = hit.transform;
+                        impactGO.SetActive(true);
+                        Destroy(impactGO, 10f);
+                    }
+                    else
+                    {
+                        GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                        impactGO.transform.parent = hit.transform;
+                        impactGO.SetActive(true);
+                        Destroy(impactGO, 10f);
+                    }
                 }
         }
 

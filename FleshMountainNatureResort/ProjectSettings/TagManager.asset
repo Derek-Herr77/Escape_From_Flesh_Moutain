@@ -6,6 +6,7 @@ TagManager:
   tags:
   - enemy
   - no_decal
+  - pickup
   layers:
   - Default
   - TransparentFX

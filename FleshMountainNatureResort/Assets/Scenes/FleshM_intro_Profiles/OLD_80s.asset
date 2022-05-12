@@ -1838,16 +1838,16 @@ MonoBehaviour:
     value: 1
   hsvMode:
     overrideState: 1
-    value: 0
+    value: 1
   levels:
     overrideState: 1
-    value: 14
+    value: 21
   hue:
     overrideState: 1
     value: 256
   saturation:
     overrideState: 1
-    value: 100
+    value: 7
   value:
     overrideState: 1
-    value: 20
+    value: 13
