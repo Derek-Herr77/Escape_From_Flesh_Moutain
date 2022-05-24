@@ -162,5 +162,10 @@ public class player_inventory : MonoBehaviour
         }
         return false;
     }
+
+    public GameObject get_equiped_gun()
+    {
+        return equiped_gun;
+    }
 }
 

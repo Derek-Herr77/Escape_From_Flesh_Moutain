@@ -48,11 +48,6 @@ public class single_shotgun_script : MonoBehaviour
     {
         gunOperations();
         animator.SetInteger("ammo", ammo_in_magazine);
-        //switch gun
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        // switch_gun();
-        //}
     }
 
     private void gunOperations()
@@ -175,74 +170,90 @@ public class single_shotgun_script : MonoBehaviour
         int layerMask1 = 1 << 12;
         RaycastHit hit;
         RaycastHit hit_blood;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask1 | layerMask2 | layerMask3))
+
+        for(int i = 0; i < 12; i++)
         {
-            //HIT FORCE
-            if (hit.rigidbody != null)
+            Vector3 deviation3D = Random.insideUnitCircle * 2;
+            Quaternion rot = Quaternion.LookRotation(Vector3.forward * 15 + deviation3D);
+            Vector3 forwardVector = mainCamera.transform.rotation * rot * Vector3.forward;
+
+            if (Physics.Raycast(mainCamera.transform.position, forwardVector, out hit, Mathf.Infinity, layerMask1 | layerMask2 | layerMask3))
             {
-                if (hit.transform.GetComponent<target>() != null || hit.transform.GetComponentInParent<target>() != null)
-                {
-                    target target = hit.transform.GetComponentInParent<target>();
-                    if (hit.transform.name == "head")
-                    {
-                        target.headshot(damage, -hit.normal, force_strength);
-                        player_sounds.play_headshot_crack();
-                    }
-                    else
-                    {
-                        target.takeDamage(damage, -hit.normal, hit.transform.gameObject, force_strength);
-                    }
-                }
+                //HIT FORCE
                 if (hit.rigidbody != null)
                 {
-                    hit.rigidbody.AddForce(-hit.normal * force_strength, ForceMode.Impulse);
-                }
-            }
-            //
-
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("enemy"))
-            {
-                if (hit.collider.enabled == true)
-                {
-                    GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
-                    impactBlood_1.transform.parent = hit.transform;
-                    impactBlood_1.SetActive(true);
-                    Destroy(impactBlood_1, 100f);
-                }
-
-                if (Physics.Raycast(hit.transform.position, mainCamera.transform.forward, out hit_blood, 8f, layerMask1 | layerMask2))
-                {
-                    if (hit_blood.transform.tag == "no_decal")
+                    if (hit.transform.GetComponent<target>() != null || hit.transform.GetComponentInParent<target>() != null)
                     {
-                        GameObject impactBlood_2 = Instantiate(impactBlood, hit_blood.point, Quaternion.LookRotation(hit_blood.normal));
-                        impactBlood_2.transform.parent = hit_blood.transform;
-                        impactBlood_2.SetActive(true);
-                        Destroy(impactBlood_2, 100f);
+                        target target = hit.transform.GetComponentInParent<target>();
+                        if (hit.transform.name == "head")
+                        {
+                            target.headshot(damage, -hit.normal, force_strength);
+                            player_sounds.play_headshot_crack();
+                        }
+                        else
+                        {
+                            target.takeDamage(damage, -hit.normal, hit.transform.gameObject, force_strength);
+                        }
                     }
-                    else
+                    if (hit.rigidbody != null)
                     {
-                        GameObject impactBlood_2 = Instantiate(blood_decals, hit_blood.point, Quaternion.LookRotation(-hit_blood.normal));
-                        //impactBlood_2.transform.parent = hit_blood.transform;
-                        impactBlood_2.SetActive(true);
-                        Destroy(impactBlood_2, 100f);
+                        hit.rigidbody.AddForce(-hit.normal * force_strength, ForceMode.Impulse);
                     }
                 }
-            }
-            else
-            {
-                if (hit.transform.GetComponent<MeshCollider>() != null && hit.transform.GetComponent<MeshCollider>().sharedMaterial.name == "Metal")
+                //
+
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("enemy"))
                 {
-                    GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
-                    impactGO.transform.parent = hit.transform;
-                    impactGO.SetActive(true);
-                    Destroy(impactGO, 10f);
+                    if (hit.collider.enabled == true)
+                    {
+                        GameObject impactBlood_1 = Instantiate(impactBlood, hit.point, Quaternion.LookRotation(hit.normal));
+                        impactBlood_1.transform.parent = hit.transform;
+                        impactBlood_1.SetActive(true);
+                        Destroy(impactBlood_1, 100f);
+                    }
+
+                    if (Physics.Raycast(hit.transform.position, mainCamera.transform.forward, out hit_blood, 8f, layerMask1 | layerMask2))
+                    {
+                        if (hit_blood.transform.tag == "no_decal")
+                        {
+                            GameObject impactBlood_2 = Instantiate(impactBlood, hit_blood.point, Quaternion.LookRotation(hit_blood.normal));
+                            impactBlood_2.transform.parent = hit_blood.transform;
+                            impactBlood_2.SetActive(true);
+                            Destroy(impactBlood_2, 100f);
+                        }
+                        else
+                        {
+                            GameObject impactBlood_2 = Instantiate(blood_decals, hit_blood.point, Quaternion.LookRotation(-hit_blood.normal));
+                            //impactBlood_2.transform.parent = hit_blood.transform;
+                            impactBlood_2.SetActive(true);
+                            Destroy(impactBlood_2, 100f);
+                        }
+                    }
                 }
                 else
                 {
-                    GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-                    impactGO.transform.parent = hit.transform;
-                    impactGO.SetActive(true);
-                    Destroy(impactGO, 10f);
+
+                    if (hit.collider.tag == "breakable")
+                    {
+                        hit.collider.gameObject.GetComponent<breakItem>().smash();
+                    }
+                    else
+                    {
+                        if (hit.collider.sharedMaterial != null && hit.collider.sharedMaterial.name == "Metal")
+                        {
+                            GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
+                            impactGO.transform.parent = hit.transform;
+                            impactGO.SetActive(true);
+                            Destroy(impactGO, 10f);
+                        }
+                        else
+                        {
+                            GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                            impactGO.transform.parent = hit.transform;
+                            impactGO.SetActive(true);
+                            Destroy(impactGO, 10f);
+                        }
+                    }
                 }
             }
         }

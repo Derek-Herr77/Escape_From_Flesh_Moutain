@@ -210,10 +210,17 @@ public class Glock_Script : MonoBehaviour
                         }
                     }
                 }
+            else
+            {
+
+                if (hit.collider.tag == "breakable")
+                {
+                    hit.collider.gameObject.GetComponent<breakItem>().smash();
+                }
                 else
                 {
-                    if (hit.transform.GetComponent<MeshCollider>() != null && hit.transform.GetComponent<MeshCollider>().sharedMaterial.name == "Metal")
-                    {   
+                    if (hit.collider.sharedMaterial != null && hit.collider.sharedMaterial.name == "Metal")
+                    {
                         GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
                         impactGO.transform.parent = hit.transform;
                         impactGO.SetActive(true);
@@ -227,6 +234,7 @@ public class Glock_Script : MonoBehaviour
                         Destroy(impactGO, 10f);
                     }
                 }
+            }
         }
 
     }

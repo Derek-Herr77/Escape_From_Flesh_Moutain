@@ -162,8 +162,6 @@ public class smg_script : MonoBehaviour
             shell.PlayOneShot(shell_casing_sound);
         }
 
-        //RAYCAST 2 LAYERS, THE GROUND AND EVERYTHING ELSE
-        //int layerMask = 1 << 12; //ground layer not used
         int layerMask2 = 1 << 0;
         int layerMask3 = 1 << 11;
         int layerMask1 = 1 << 12;
@@ -224,25 +222,32 @@ public class smg_script : MonoBehaviour
             }
             else
             {
-                if (hit.collider.sharedMaterial != null && hit.collider.sharedMaterial.name == "Metal")
+
+                if (hit.collider.tag == "breakable")
                 {
-                    GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
-                    impactGO.transform.parent = hit.transform;
-                    impactGO.SetActive(true);
-                    Destroy(impactGO, 10f);
+                    hit.collider.gameObject.GetComponent<breakItem>().smash();
                 }
                 else
                 {
-                    GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-                    impactGO.transform.parent = hit.transform;
-                    impactGO.SetActive(true);
-                    Destroy(impactGO, 10f);
+                    if (hit.collider.sharedMaterial != null && hit.collider.sharedMaterial.name == "Metal")
+                    {
+                        GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
+                        impactGO.transform.parent = hit.transform;
+                        impactGO.SetActive(true);
+                        Destroy(impactGO, 10f);
+                    }
+                    else
+                    {
+                        GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                        impactGO.transform.parent = hit.transform;
+                        impactGO.SetActive(true);
+                        Destroy(impactGO, 10f);
+                    }
                 }
             }
         }
-
     }
-    public void reload_animation()
+public void reload_animation()
     {
         if (!animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsName("empty_reload") && !animator.GetCurrentAnimatorStateInfo(0).IsName("reload") && (ammo_in_magazine != magazine_size) && animator.GetBool("reload") != true)
         {

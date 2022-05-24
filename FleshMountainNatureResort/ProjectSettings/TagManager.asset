@@ -7,6 +7,8 @@ TagManager:
   - enemy
   - no_decal
   - pickup
+  - Fire
+  - breakable
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Ground
   - enemy
   - no_decal
-  - 
+  - pickup
   - 
   - 
   - 

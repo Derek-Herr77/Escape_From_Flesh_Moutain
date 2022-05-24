@@ -130,7 +130,7 @@ MonoBehaviour:
   attack_delay: 3
   damage_taken: 0
   chased: 0
-  chase_speed: 2
+  chase_speed: 2.7
   sightRange: 10
   attackRange: 1
   player_insight: 0
@@ -145,10 +145,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
-  m_Acceleration: 1
+  m_Speed: 1.5
+  m_Acceleration: 2
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 150
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -173,7 +173,7 @@ MonoBehaviour:
   sounds: {fileID: 8588092183035628495}
   face: {fileID: 3166694631537754613}
   blood_decal: {fileID: 2106182210382652175}
-  health: 200
+  health: 100
   anim: {fileID: 310161750377555365}
 --- !u!1 &557517308717709571
 GameObject:
@@ -892,7 +892,7 @@ MonoBehaviour:
   LayerMask:
     serializedVersion: 2
     m_Bits: 4294960329
-  MaxAngle: 90
+  MaxAngle: 80
   Offset: 0.01
 --- !u!114 &195169997006505742
 MonoBehaviour:
@@ -1294,8 +1294,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0036954586, y: 0.0024897181, z: 0.0016326344}
-  m_Center: {x: 0.00006505375, y: 0.0012448257, z: -0.00011721868}
+  m_Size: {x: 0.0036954586, y: 0.0021635236, z: 0.0016326346}
+  m_Center: {x: 0.000065053726, y: 0.0010817248, z: -0.00011721876}
 --- !u!54 &8671933179246296870
 Rigidbody:
   m_ObjectHideFlags: 0

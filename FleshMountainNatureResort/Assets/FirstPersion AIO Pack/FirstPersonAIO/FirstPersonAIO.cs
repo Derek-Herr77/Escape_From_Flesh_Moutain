@@ -1013,7 +1013,7 @@ public class FirstPersonAIO : MonoBehaviour {
                 t.drawStaminaMeter = EditorGUILayout.ToggleLeft(new GUIContent("Draw Stamina Meter","Determines if a basic stamina meter will be generated."),t.drawStaminaMeter);
                 GUI.enabled = t.playerCanMove; EditorGUI.indentLevel --;
                 EditorGUILayout.Space();
-                t.advanced.FOVKickAmount = EditorGUILayout.Slider(new GUIContent("FOV Kick Amount","Determines how much the camera's FOV will kick upon entering a sprint."),t.advanced.FOVKickAmount,0,5);
+                t.advanced.FOVKickAmount = EditorGUILayout.Slider(new GUIContent("FOV Kick Amount","Determines how much the camera's FOV will kick upon entering a sprint."),t.advanced.FOVKickAmount,0,15);
                 if(t.advanced.FOVKickAmount > 0){t.advanced.changeTime = EditorGUILayout.Slider(new GUIContent("FOV Change Time","Determines the speed of the FOV kick"),t.advanced.changeTime,0.1f,2);}
                 EditorGUILayout.Space();
                 t.advanced.gravityMultiplier = EditorGUILayout.Slider(new GUIContent("Gravity Multiplier","Determines how much the physics engine's gravitational force is multiplied."),t.advanced.gravityMultiplier,0.1f,5);
