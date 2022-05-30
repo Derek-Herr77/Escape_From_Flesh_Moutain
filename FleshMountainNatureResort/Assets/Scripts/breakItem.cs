@@ -6,24 +6,43 @@ public class breakItem : MonoBehaviour
 {
     public GameObject smashEffect;
     public AudioClip glass1, glass2, glass3;
+    public bool changeTexture = false;
+    public bool deleteItem = true;
+    public Material smashMat;
+    public Texture smashTexture;
+    public Material modifiedMat = null;
+
 
     private void Start()
     {
-        int randomNumber = Random.Range(1, 3);
+        int randomNumber = Random.Range(1, 4);
         if(randomNumber == 1) smashEffect.GetComponent<AudioSource>().clip = glass1;
         if (randomNumber == 2) smashEffect.GetComponent<AudioSource>().clip = glass2;
         if (randomNumber == 3) smashEffect.GetComponent<AudioSource>().clip = glass3;
     }
     public void smash()
     {
-        StartCoroutine(smashThis());
+        if(deleteItem) StartCoroutine(smashThis());
+        else
+        {
+            if(modifiedMat == null)
+            {
+                Debug.Log("Balls");
+                modifiedMat = new Material(smashMat);
+                modifiedMat.mainTexture = smashTexture;
+                var copyMat = gameObject.GetComponent<Renderer>().materials;
+                copyMat[1] = modifiedMat;
+                gameObject.GetComponent<Renderer>().materials = copyMat;
+            }
+            smashEffect.SetActive(true);
+        }
     }
 
     IEnumerator smashThis()
     {
-        gameObject.GetComponent<Renderer>().enabled = false;
+        if(deleteItem) gameObject.GetComponent<Renderer>().enabled = false;
         smashEffect.SetActive(true);
         yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        if(deleteItem) Destroy(gameObject);
     }
 }

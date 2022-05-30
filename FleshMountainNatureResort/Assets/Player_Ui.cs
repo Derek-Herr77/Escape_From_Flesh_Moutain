@@ -19,13 +19,11 @@ public class Player_Ui : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(crosshair.GetBool("hover"));
         Ray ray = player_camera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
         int layerMask = 1 << 8;
         if (Physics.Raycast(ray, out hit, 3, ~layerMask))
         {
-            Debug.Log(hit.transform.name);
             if (hit.collider.tag == "pickup")
             {
                 crosshair.SetBool("hover", true);

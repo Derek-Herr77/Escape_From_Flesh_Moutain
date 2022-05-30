@@ -217,22 +217,19 @@ public class Glock_Script : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<breakItem>().smash();
                 }
+                if (hit.collider.sharedMaterial != null && hit.collider.sharedMaterial.name == "Metal")
+                {
+                    GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactGO.transform.parent = hit.transform;
+                    impactGO.SetActive(true);
+                    Destroy(impactGO, 10f);
+                }
                 else
                 {
-                    if (hit.collider.sharedMaterial != null && hit.collider.sharedMaterial.name == "Metal")
-                    {
-                        GameObject impactGO = Instantiate(impactMetal, hit.point, Quaternion.LookRotation(hit.normal));
-                        impactGO.transform.parent = hit.transform;
-                        impactGO.SetActive(true);
-                        Destroy(impactGO, 10f);
-                    }
-                    else
-                    {
-                        GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-                        impactGO.transform.parent = hit.transform;
-                        impactGO.SetActive(true);
-                        Destroy(impactGO, 10f);
-                    }
+                    GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                    impactGO.transform.parent = hit.transform;
+                    impactGO.SetActive(true);
+                    Destroy(impactGO, 10f);
                 }
             }
         }

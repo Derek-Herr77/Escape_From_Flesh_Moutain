@@ -9,6 +9,7 @@ TagManager:
   - pickup
   - Fire
   - breakable
+  - breakableStay
   layers:
   - Default
   - TransparentFX

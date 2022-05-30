@@ -10941,3 +10941,5 @@ MonoBehaviour:
   glass1: {fileID: 8300000, guid: 1dbb7ebd75050774b8fd52848d4710ca, type: 3}
   glass2: {fileID: 8300000, guid: 599798a060ed87846a7b1263dca35b59, type: 3}
   glass3: {fileID: 8300000, guid: a6915a7587558c1448e092886fa898ce, type: 3}
+  changeTexture: 0
+  deleteItem: 1
