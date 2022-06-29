@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7802149737518279393}
   - component: {fileID: 7802149737518279392}
   m_Layer: 9
-  m_Name: Post-process Volume 1
+  m_Name: Main Post
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 1791ef61a4100a94095e0d4308156a46, type: 2}
+  sharedProfile: {fileID: 11400000, guid: ac1021a2cc0b18748ab61ce3b1342079, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1

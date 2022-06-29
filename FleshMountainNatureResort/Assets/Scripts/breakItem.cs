@@ -27,7 +27,6 @@ public class breakItem : MonoBehaviour
         {
             if(modifiedMat == null)
             {
-                Debug.Log("Balls");
                 modifiedMat = new Material(smashMat);
                 modifiedMat.mainTexture = smashTexture;
                 var copyMat = gameObject.GetComponent<Renderer>().materials;

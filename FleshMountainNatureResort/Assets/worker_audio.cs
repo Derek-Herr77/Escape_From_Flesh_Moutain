@@ -14,6 +14,8 @@ public class worker_audio : MonoBehaviour
     private void Start()
     {
         audio2_attack_overlay.enabled = false;
+        audio2_attack_overlay.pitch = Random.Range(0.6f, 1);
+        audio3_audio_spikes.pitch = Random.Range(0.6f, 1);
     }
 
     private void PlayOneShot(AudioClip clip, float volume)
@@ -40,7 +42,7 @@ public class worker_audio : MonoBehaviour
     {
         audio2_attack_overlay.enabled = false;
     }
-    public void play_death_noise()
+    public void play_death_noise(bool headshot)
     {
         if(gameObject.active == true)
         {
@@ -51,7 +53,7 @@ public class worker_audio : MonoBehaviour
             audio1_norm.enabled = false;
             stop_chase_noise();
             audio3_audio_spikes.pitch = Random.Range(0.4f, 1f);
-            audio3_audio_spikes.PlayOneShot(death);
+            if (!headshot) { audio3_audio_spikes.PlayOneShot(death); }
             StartCoroutine(FadeOut(audio3_audio_spikes, 4f));
             yield return new WaitForSeconds(4f);
             disable_noises();

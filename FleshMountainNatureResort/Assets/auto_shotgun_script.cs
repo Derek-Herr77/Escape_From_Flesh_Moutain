@@ -147,9 +147,9 @@ public class auto_shotgun_script : MonoBehaviour
         RaycastHit hit;
         RaycastHit hit_blood;
 
-        for(int i = 0; i < 12; i++)
+        for(int i = 0; i < 8; i++)
         {
-            Vector3 deviation3D = Random.insideUnitCircle * 2;
+            Vector3 deviation3D = Random.insideUnitCircle * 0.5f;
             Quaternion rot = Quaternion.LookRotation(Vector3.forward * 15 + deviation3D);
             Vector3 forwardVector = mainCamera.transform.rotation * rot * Vector3.forward;
 
@@ -164,7 +164,6 @@ public class auto_shotgun_script : MonoBehaviour
                         if (hit.transform.name == "head")
                         {
                             target.headshot(damage, -hit.normal, force_strength);
-                            player_sounds.play_headshot_crack();
                         }
                         else
                         {

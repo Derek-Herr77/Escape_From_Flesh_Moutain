@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class Player_Ui : MonoBehaviour
 {
     public Camera player_camera;
+    public Text health;
+    public Text gunName;
     public Animator crosshair;
     public Image crosshair_image;
-    private bool canPick;
-    public Text ammo1, ammo2;
+    public bool canPick;
+    public Text ammo1;
     private player_inventory playerInv;
 
     private void Start()
@@ -44,26 +46,19 @@ public class Player_Ui : MonoBehaviour
         }
         if (canPick && crosshair_image.color.a <= 0.9) set_crosshair_on();
         if (!canPick && crosshair_image.color.a >= 0.1) set_crosshair_off();
+
+
         setAmmoUi();
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "pickup")
+        health.text = playerInv.health.ToString();
+        if (playerInv.get_equiped_gun() != null)
         {
-            canPick = true;
+            var gun_name = playerInv.get_equiped_gun().name;
+            if (gun_name == "Glock_object") { gunName.text = "Pistol"; }
+            if (gun_name == "smg_object") { gunName.text = "Submachine Gun"; }
+            if (gun_name == "single_shotgun_object") { gunName.text = "Single-shot Shotgun"; }
+            if (gun_name == "autoshot_object") { gunName.text = "Semi-auto Shotgun"; }
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "pickup")
-        {
-            canPick = false;
-        }
-
-    }
-
     public void set_crosshair_on()
     {
         StartCoroutine(FadeTo(1, 0.4f));
@@ -95,12 +90,13 @@ public class Player_Ui : MonoBehaviour
             if (ammoName.Contains("smg")) ammoline = playerInv.get_equiped_gun().GetComponentInChildren<smg_script>().ammo_in_magazine.ToString() + "/" + playerInv.return_smg_ammo().ToString();
             if (ammoName.Contains("shotgun")) ammoline = playerInv.get_equiped_gun().GetComponentInChildren<single_shotgun_script>().ammo_in_magazine.ToString() + "/" + playerInv.return_shotgun_ammo().ToString();
             if (ammoName.Contains("Glock")) ammoline = playerInv.get_equiped_gun().GetComponentInChildren<Glock_Script>().ammo_in_magazine.ToString() + "/" + playerInv.return_pistol_ammo().ToString();
-            ammo1.text = ammo2.text = ammoline;
+            if (ammoName.Contains("autoshot")) ammoline = playerInv.get_equiped_gun().GetComponentInChildren<auto_shotgun_script>().ammo_in_magazine.ToString() + "/" + playerInv.return_shotgun_ammo().ToString();
+            ammo1.text = ammoline;
         }
         else
         {
             string ammoLine = "";
-            ammo1.text = ammo2.text = ammoLine;
+            ammo1.text = ammoLine;
         }
     }
 }

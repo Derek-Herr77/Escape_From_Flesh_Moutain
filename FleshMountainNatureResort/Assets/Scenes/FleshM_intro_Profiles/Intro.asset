@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
   m_Name: Grain
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -66,25 +66,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e1b3a3f18dad1429c9ecc7e1db2274, type: 3}
   m_Name: Sunshafts
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   useCasterColor:
-    overrideState: 0
+    overrideState: 1
     value: 1
   useCasterIntensity:
     overrideState: 0
     value: 0
   sunShaftIntensity:
     overrideState: 1
-    value: 1
+    value: 0.3
   blendMode:
     overrideState: 0
     value: 1
   resolution:
-    overrideState: 0
-    value: 2
+    overrideState: 1
+    value: 3
   highQuality:
     overrideState: 0
     value: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 3
   threshold:
     overrideState: 1
     value: 1
@@ -168,7 +168,7 @@ MonoBehaviour:
     value: 1
   amount:
     overrideState: 1
-    value: 0.04
+    value: 0.02
 --- !u!114 &-1171026028207242686
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -385,10 +385,10 @@ MonoBehaviour:
     value: 20
   postExposure:
     overrideState: 1
-    value: 2
+    value: 0
   contrast:
     overrideState: 1
-    value: -10
+    value: -23
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -418,13 +418,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0.027347239}
+    value: {x: 1, y: 1, z: 1, w: -0.006379572}
   gamma:
     overrideState: 0
     value: {x: 1, y: 1, z: 1, w: 0.009115769}
   gain:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0.08204193}
+    value: {x: 1, y: 1, z: 1, w: 0.5879442}
   masterCurve:
     overrideState: 0
     value:
@@ -1841,7 +1841,7 @@ MonoBehaviour:
     value: 0
   levels:
     overrideState: 1
-    value: 14
+    value: 115
   hue:
     overrideState: 1
     value: 256

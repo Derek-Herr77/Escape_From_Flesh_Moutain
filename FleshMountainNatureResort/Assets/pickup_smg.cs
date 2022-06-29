@@ -7,7 +7,12 @@ public class pickup_smg : MonoBehaviour
     // Start is called before the first frame update
     public GameObject player;
 
-// Update is called once per frame
+    private void Start()
+    {
+        player = GameObject.Find("player");
+    }
+
+    // Update is called once per frame
     public void pickup()
     {
         var player_read = player.transform.GetChild(0).GetChild(0).transform.gameObject;
@@ -17,7 +22,7 @@ public class pickup_smg : MonoBehaviour
             {
                 if (player.transform.GetComponent<player_inventory>().has_equiped_gun())
                 {
-                    player.transform.GetComponent<player_inventory>().weapon_switch_pickup_primary(child.gameObject);
+                    player.transform.GetComponent<player_inventory>().weapon_switch_pickup(child.gameObject);
                 }
                 else
                 {

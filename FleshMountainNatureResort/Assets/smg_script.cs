@@ -179,7 +179,6 @@ public class smg_script : MonoBehaviour
                     if (hit.transform.name == "head")
                     {
                         target.headshot(damage, -hit.normal, force_strength);
-                        player_sounds.play_headshot_crack();
                     }
                     else
                     {

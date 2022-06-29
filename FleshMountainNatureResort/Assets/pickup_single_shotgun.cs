@@ -5,29 +5,26 @@ using UnityEngine;
 public class pickup_single_shotgun : MonoBehaviour
 {
     // Start is called before the first frame update
-    private GameObject player;
+    public GameObject player;
 
     // Update is called once per frame
-    private void OnTriggerStay(Collider other)
+    public void pickup()
     {
-        if (Input.GetKey(KeyCode.E) && other.tag == "Player")
+        var player_read = player.transform.GetChild(0).GetChild(0).transform.gameObject;
+        foreach (Transform child in player_read.transform)
         {
-            player = other.transform.GetChild(0).GetChild(0).transform.gameObject;
-            foreach (Transform child in player.transform)
+            if (child.name == "single_shotgun_object")
             {
-                if (child.name == "single_shotgun_object")
+                if (player.transform.GetComponent<player_inventory>().has_equiped_gun())
                 {
-                    if (other.transform.GetComponent<player_inventory>().has_equiped_gun())
-                    {
-                        other.transform.GetComponent<player_inventory>().weapon_switch_pickup_primary(child.gameObject);
-                    }
-                    else
-                    {
-                        other.transform.GetComponent<player_inventory>().set_primary(child.gameObject);
-                    }
+                    player.transform.GetComponent<player_inventory>().weapon_switch_pickup(child.gameObject);
+                }
+                else
+                {
+                    player.transform.GetComponent<player_inventory>().set_primary(child.gameObject);
                 }
             }
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 }

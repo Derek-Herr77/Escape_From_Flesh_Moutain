@@ -400,7 +400,7 @@ public class FirstPersonAIO : MonoBehaviour {
         #region Movement Settings - FixedUpdate
         
         if(useStamina){
-            isSprinting = Input.GetKey(sprintKey) && !isCrouching && staminaInternal > 0 && (Mathf.Abs(fps_Rigidbody.velocity.x) > 0.02f || Mathf.Abs(fps_Rigidbody.velocity.z) > 0.02f) && !aiming;
+            isSprinting = Input.GetKey(sprintKey) && !isCrouching && staminaInternal > 0 && (Mathf.Abs(fps_Rigidbody.velocity.x) > 0.02f || Mathf.Abs(fps_Rigidbody.velocity.z) > 0.02f) && !aiming && (Mathf.Abs(fps_Rigidbody.velocity.z) < 0);
             if(isSprinting){
                 staminaInternal -= (staminaDepletionSpeed*2)*Time.deltaTime;
                 if(drawStaminaMeter){
@@ -417,11 +417,12 @@ public class FirstPersonAIO : MonoBehaviour {
                     StaminaMeter.transform.localScale = new Vector3(x,1,1); 
                 }
                 staminaInternal = Mathf.Clamp(staminaInternal,0,staminaLevel);
-        } else{isSprinting = Input.GetKey(sprintKey) && !aiming && (Mathf.Abs(fps_Rigidbody.velocity.x) > 0.02f || Mathf.Abs(fps_Rigidbody.velocity.z) > 0.02f); }
-
+        } else{
+            isSprinting = Input.GetKey(sprintKey) && inputXY.y > 0 && !aiming && (Mathf.Abs(fps_Rigidbody.velocity.x) > 0.02f || Mathf.Abs(fps_Rigidbody.velocity.z) > 0.02f);
+        }
         Vector3 MoveDirection = Vector3.zero;
         speed = walkByDefault ? isCrouching ? walkSpeedInternal : (isSprinting ? sprintSpeedInternal : walkSpeedInternal) : (isSprinting ? walkSpeedInternal : sprintSpeedInternal);
-  
+        
 
         if(advanced.maxSlopeAngle>0){
             if(advanced.isTouchingUpright && advanced.isTouchingWalkable){
@@ -442,7 +443,6 @@ public class FirstPersonAIO : MonoBehaviour {
         else{
         MoveDirection = (transform.forward * inputXY.y * speed + transform.right * inputXY.x * walkSpeedInternal);
         }
-
         
             #region step logic
                 RaycastHit WT;
@@ -499,7 +499,6 @@ public class FirstPersonAIO : MonoBehaviour {
 
         if(playerCanMove && !controllerPauseState){
           fps_Rigidbody.velocity = MoveDirection+(Vector3.up * yVelocity);
-
         } else{ //fps_Rigidbody.velocity = Vector3.zero;
                 }
 

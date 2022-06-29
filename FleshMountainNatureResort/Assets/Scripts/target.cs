@@ -14,6 +14,7 @@ public class target : MonoBehaviour
     Rigidbody[] colliders;
     public Animator anim;
     private bool death_check = false;
+    public GameObject headshoteffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -107,22 +108,39 @@ public class target : MonoBehaviour
 
     public void headshot(int damage, Vector3 normal, float force_strength)
     {
-            if (death_check == false)
-            {
-                sounds.play_hit_noise();
-            }
-            if (health - (damage * 2) <= 0)
-            {
-                face.transform.localScale = new Vector3(0f, 0f, 0f);
-            }
-            takeDamage(damage * 2, normal, force_strength);
+        if (death_check == false)
+        {
+            sounds.play_hit_noise();
+        }
+
+        if (health - (damage * 2) <= 0)
+        {
+            sounds.audio3_audio_spikes.enabled = false;
+            face.transform.localScale = new Vector3(0f, 0f, 0f);
+            headshoteffect.SetActive(true);
+            enableRagdoll();
+            forceRagdoll(normal, force_strength);
+            deathHeadshot();
+        }
+        takeDamage(damage * 2, normal, force_strength);
     }
 
     public void death()
     {
         if (death_check == false)
         {
-            sounds.play_death_noise();
+            sounds.play_death_noise(false);
+            death_check = true;
+            anim.enabled = false;
+            ai_script.enabled = false;
+            GetComponent<NavMeshAgent>().enabled = false;
+        }
+    }
+    public void deathHeadshot()
+    {
+        if (death_check == false)
+        {
+            sounds.play_death_noise(true);
             death_check = true;
             anim.enabled = false;
             ai_script.enabled = false;

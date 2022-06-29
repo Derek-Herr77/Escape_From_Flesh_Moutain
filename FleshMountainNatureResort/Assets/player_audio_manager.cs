@@ -12,13 +12,4 @@ public class player_audio_manager : MonoBehaviour
         sounds = gameObject.GetComponent<AudioSource>();
     }
 
-    public void play_headshot_crack()
-    {
-        StartCoroutine(hit_delay());
-        IEnumerator hit_delay()
-        {
-            yield return new WaitForSeconds(0.1f);
-            sounds.PlayOneShot(headshot_crack);
-        }
-    }
 }

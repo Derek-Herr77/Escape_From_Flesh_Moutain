@@ -30,10 +30,6 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
-  skyboxTex:
-    overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
   useSceneSettings:
     overrideState: 0
     value: 0
@@ -157,25 +153,21 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
-  skyboxTex:
-    overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
   useSceneSettings:
     overrideState: 0
     value: 0
   fogMode:
-    overrideState: 0
-    value: 2
+    overrideState: 1
+    value: 1
   globalDensity:
     overrideState: 1
     value: 1
   fogStartDistance:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 1
   fogEndDistance:
-    overrideState: 0
-    value: 600
+    overrideState: 1
+    value: 150
   colorSource:
     overrideState: 0
     value: 0
@@ -197,9 +189,9 @@ MonoBehaviour:
     value: 1
   distanceFog:
     overrideState: 0
-    value: 1
+    value: 0
   distanceDensity:
-    overrideState: 0
+    overrideState: 1
     value: 1
   useRadialDistance:
     overrideState: 0
@@ -254,8 +246,8 @@ MonoBehaviour:
     overrideState: 0
     value: 2
   lightScattering:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 1
   scatterIntensity:
     overrideState: 0
     value: 10

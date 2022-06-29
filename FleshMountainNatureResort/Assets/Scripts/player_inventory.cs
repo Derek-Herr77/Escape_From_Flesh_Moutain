@@ -88,6 +88,8 @@ public class player_inventory : MonoBehaviour
 
     public void set_equiped(GameObject gun)
     {
+        if(gun != null && equiped_gun != null) { Debug.Log(gun.name + " Was called to switch from " + equiped_gun.name); };
+
         if(equiped_gun != null)
         {
             equiped_gun.SetActive(false);
@@ -126,30 +128,37 @@ public class player_inventory : MonoBehaviour
         }
     }
 
-    public void weapon_switch_pickup_primary(GameObject primary)
+    public void weapon_switch_pickup(GameObject gun)
     {
-        primary_gun = primary;
         equiped_gun.transform.GetChild(0).GetComponent<Animator>().SetTrigger("switch");
-
-        if(equiped_gun != null)
+        if(primary_gun != null && secondary_gun != null)
         {
-            if (equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch"))
+            if(equiped_gun == primary_gun)
             {
-                 set_equiped(primary_gun);
+                primary_gun = gun;
+            }
+            else
+            {
+                secondary_gun = gun;
             }
         }
-    }
-
-    public void weapon_switch_pickup_secondary(GameObject secondary)
-    {
-        secondary_gun = secondary;
-        equiped_gun.transform.GetChild(0).GetComponent<Animator>().SetTrigger("switch");
+        else
+        {
+            if (equiped_gun == primary_gun)
+            {
+                secondary_gun = gun;
+            }
+            else
+            {
+                primary_gun = gun;
+            }
+        }
 
         if (equiped_gun != null)
         {
             if (equiped_gun.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("switch"))
             {
-                set_equiped(secondary_gun);
+                set_equiped(gun);
             }
         }
     }

@@ -17,11 +17,11 @@ public class pickup_glock : MonoBehaviour
             {
                 if (player.transform.GetComponent<player_inventory>().has_equiped_gun())
                 {
-                    player.transform.GetComponent<player_inventory>().weapon_switch_pickup_secondary(child.gameObject);
+                    player.transform.GetComponent<player_inventory>().weapon_switch_pickup(child.gameObject);
                 }
                 else
                 {
-                    player.transform.GetComponent<player_inventory>().set_secondary(child.gameObject);
+                    player.transform.GetComponent<player_inventory>().set_primary(child.gameObject);
                 }
             }
         }
